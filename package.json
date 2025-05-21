@@ -1,0 +1,12 @@
+{
+  "name": "fullstack-silverhand",
+  "version": "1.0.0",
+  "description": "Projeto SilverHand",
+  "main": "index.js",
+  "scripts": {
+    "dev:back": "cd client && npm install && npm run dev",
+    "dev:front": "cd server && npm install && npm run dev"
+  },
+  "author": "Cristian Daniel",
+  "license": "MIT"
+}
