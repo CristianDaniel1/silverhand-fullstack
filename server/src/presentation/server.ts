@@ -23,8 +23,8 @@ export class Server {
 
   async start() {
     // * Middlewares
-    this.app.use(express.json()); // raw
-    this.app.use(express.urlencoded({ extended: true })); // x-www-from-urlencoded
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
 
     // * Public Folder
     this.app.use(express.static(this.publicPath));
@@ -33,13 +33,13 @@ export class Server {
     this.app.use(this.routes);
 
     // * SPA
-    this.app.get('*', (req, res) => {
-      const indexPath = path.join(
-        __dirname + `../../../${this.publicPath}/index.html`
-      );
+    // this.app.get('*', (req, res) => {
+    //   const indexPath = path.join(
+    //     __dirname + `../../../${this.publicPath}/index.html`
+    //   );
 
-      res.sendFile(indexPath);
-    });
+    //   res.sendFile(indexPath);
+    // });
 
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${3000}`);
