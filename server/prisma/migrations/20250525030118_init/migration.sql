@@ -1,15 +1,15 @@
 -- CreateEnum
-CREATE TYPE "instrument_category" AS ENUM ('guitarra', 'contrabaixo', 'violao');
+CREATE TYPE "InstrumentCategory" AS ENUM ('guitarra', 'contrabaixo', 'violao');
 
 -- CreateTable
 CREATE TABLE "instrument" (
-    "id" UUID NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" VARCHAR(100) NOT NULL,
     "price" DECIMAL(10,2) NOT NULL,
-    "string_num" INTEGER NOT NULL,
+    "stringNum" INTEGER NOT NULL,
     "quant" INTEGER NOT NULL,
     "image" TEXT,
-    "category" "instrument_category" NOT NULL,
+    "category" "InstrumentCategory" NOT NULL,
 
     CONSTRAINT "instrument_pkey" PRIMARY KEY ("id")
 );
