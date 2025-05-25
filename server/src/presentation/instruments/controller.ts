@@ -1,28 +1,52 @@
 import { Request, Response } from 'express';
-import { CreateInstrumentDto } from '../../application/use-cases/instruments/create-Instrument.dto';
-import { prisma } from '../../data/postgres';
-import { UpdateInstrumentDto } from '../../application/use-cases/instruments/update-instrument.dto';
+import { CreateInstrumentDto } from '../../application/use-cases/instruments/dtos/create-Instrument.dto';
+import { UpdateInstrumentDto } from '../../application/use-cases/instruments/dtos/update-instrument.dto';
+import { InstrumentRepository } from '../../domain/repositories/instrument.repository';
+import {
+  CreateInstrument,
+  DeleteInstrument,
+  GetInstrument,
+  GetInstruments,
+  UpdateInstrument,
+} from '../../application/use-cases/instruments';
 
 export class InstrumentController {
-  constructor() {}
+  constructor(private readonly instrumentRepository: InstrumentRepository) {}
 
   public getInstruments = async (req: Request, res: Response) => {
-    const instruments = await prisma.instrument.findMany();
-
-    return res.json(instruments);
+    try {
+      const instruments = await new GetInstruments(
+        this.instrumentRepository
+      ).execute();
+      res.json(instruments);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
   };
 
-  public getInstrumentById = (req: Request, res: Response) => {
-    const { id } = req.params;
+  public getInstrumentById = async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    try {
+      const instrument = await new GetInstrument(
+        this.instrumentRepository
+      ).execute(id);
+      res.json(instrument);
+    } catch (error: any) {
+      res.status(404).json({ error: error.message });
+    }
   };
 
   public createInstrument = async (req: Request, res: Response) => {
     const instrumentDto = CreateInstrumentDto.create(req.body);
-    const instrument = await prisma.instrument.create({
-      data: instrumentDto,
-    });
 
-    res.json(instrument);
+    try {
+      const instrument = await new CreateInstrument(
+        this.instrumentRepository
+      ).execute(instrumentDto);
+      res.status(201).json(instrument);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
   };
 
   public updateInstrument = async (req: Request, res: Response) => {
@@ -33,18 +57,26 @@ export class InstrumentController {
       id,
     });
 
-    const instrument = await prisma.instrument.findFirst({ where: { id } });
-
-    if (!instrument)
-      return res.status(404).json({ error: 'Instrumento não existe' });
-
-    const updatedInstrument = await prisma.instrument.update({
-      where: { id },
-      data: updatedInstrumentDto.values,
-    });
-
-    res.json(updatedInstrument);
+    try {
+      const instrument = await new UpdateInstrument(
+        this.instrumentRepository
+      ).execute(updatedInstrumentDto);
+      res.json(instrument);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
   };
 
-  public deleteInstrument = (req: Request, res: Response) => {};
+  public deleteInstrument = async (req: Request, res: Response) => {
+    const id = +req.params.id;
+
+    try {
+      const instrument = await new DeleteInstrument(
+        this.instrumentRepository
+      ).execute(id);
+      res.json(instrument);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  };
 }

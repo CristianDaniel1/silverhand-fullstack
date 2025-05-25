@@ -1,8 +1,4 @@
-export enum Category {
-  GUITARRA = 'guitarra',
-  CONTRABAIXO = 'contrabaixo',
-  VIOLAO = 'violao',
-}
+import { Category } from '../../../../domain/entities/instrument.entity';
 
 export class UpdateInstrumentDto {
   constructor(
