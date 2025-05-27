@@ -3,7 +3,11 @@ keys/
 .env
 .env.test
 
+dist/
+
 generated/prisma/
 /postgres
 
-dist/
+/mongo
+build/
+coverage/
