@@ -3,6 +3,7 @@ import { UpdateInstrumentDto } from '../../application/use-cases/instruments/dto
 import { prisma } from '../../data/postgres';
 import { InstrumentDatasource } from '../../domain/datasources/instrument.datasource';
 import { InstrumentEntity } from '../../domain/entities/instrument.entity';
+import { CustomError } from '../../shared/errors/custom.error';
 
 export class InstrumentDatasourceImpl implements InstrumentDatasource {
   async create(
@@ -38,7 +39,7 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
     });
 
     if (!instrument)
-      throw new Error(`Instrumento com id ${id} não foi encontrado`);
+      throw CustomError.notFound(`Instrumento com id ${id} não foi encontrado`);
 
     return InstrumentEntity.fromObject(instrument);
   }

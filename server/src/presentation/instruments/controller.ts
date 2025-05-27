@@ -9,9 +9,19 @@ import {
   GetInstruments,
   UpdateInstrument,
 } from '../../application/use-cases/instruments';
+import { CustomError } from '../../shared/errors/custom.error';
 
 export class InstrumentController {
   constructor(private readonly instrumentRepository: InstrumentRepository) {}
+
+  private handleError = (res: Response, error: unknown) => {
+    if (error instanceof CustomError) {
+      res.status(error.statusCode).json({ error: error.message });
+      return;
+    }
+
+    res.status(500).json({ error: 'Internal Server Error - Check logs' });
+  };
 
   public getInstruments = async (req: Request, res: Response) => {
     try {
@@ -19,8 +29,8 @@ export class InstrumentController {
         this.instrumentRepository
       ).execute();
       res.json(instruments);
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error: unknown) {
+      this.handleError(res, error);
     }
   };
 
@@ -31,8 +41,8 @@ export class InstrumentController {
         this.instrumentRepository
       ).execute(id);
       res.json(instrument);
-    } catch (error: any) {
-      res.status(404).json({ error: error.message });
+    } catch (error: unknown) {
+      this.handleError(res, error);
     }
   };
 
@@ -44,8 +54,8 @@ export class InstrumentController {
         this.instrumentRepository
       ).execute(instrumentDto);
       res.status(201).json(instrument);
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error: unknown) {
+      this.handleError(res, error);
     }
   };
 
@@ -62,8 +72,8 @@ export class InstrumentController {
         this.instrumentRepository
       ).execute(updatedInstrumentDto);
       res.json(instrument);
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error: unknown) {
+      this.handleError(res, error);
     }
   };
 
@@ -75,8 +85,8 @@ export class InstrumentController {
         this.instrumentRepository
       ).execute(id);
       res.json(instrument);
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error: unknown) {
+      this.handleError(res, error);
     }
   };
 }
