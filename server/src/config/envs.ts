@@ -16,8 +16,12 @@ process.loadEnvFile();
 const { success, error, data } = envSchema.safeParse(process.env);
 
 if (!success) {
-  console.error('Error envs:', error.format());
-  process.exit(1);
+  if (process.env.NODE_ENV !== 'test') {
+    console.error('Error envs:', error.format());
+    process.exit(1);
+  } else {
+    console.warn('Warning: invalid envs during test:', error.format());
+  }
 }
 
 export const {
@@ -28,4 +32,4 @@ export const {
   POSTGRES_PORT,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
-} = data;
+} = data!;

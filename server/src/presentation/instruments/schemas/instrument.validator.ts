@@ -14,12 +14,18 @@ export const InstrumentSchema = z.object({
       .positive(),
     stringNum: z
       .number({
-        invalid_type_error: 'stringNum must be a number',
+        invalid_type_error: 'stringNum must be a integer number',
         required_error: 'stringNum is required',
       })
       .int()
       .positive(),
-    quant: z.number().int().nonnegative(),
+    quant: z
+      .number({
+        invalid_type_error: 'Quantity must be a integer number',
+        required_error: 'Quantity is required',
+      })
+      .int()
+      .nonnegative(),
     image: z.string().optional(),
     category: z.enum(['guitarra', 'contrabaixo', 'violao'], {
       required_error: 'Category is required',

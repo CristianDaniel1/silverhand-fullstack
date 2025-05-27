@@ -1,3 +1,5 @@
+import { Decimal } from '../../../generated/prisma/runtime/library';
+
 export enum Category {
   GUITARRA = 'guitarra',
   CONTRABAIXO = 'contrabaixo',
@@ -8,7 +10,7 @@ export class InstrumentEntity {
   constructor(
     public id: number,
     public name: string,
-    public price: number,
+    public price: Decimal,
     public stringNum: number,
     public quant: number,
     public category: Category,
@@ -24,11 +26,23 @@ export class InstrumentEntity {
     return new InstrumentEntity(
       id,
       name,
-      price,
+      new Decimal(price),
       stringNum,
       quant,
       category,
       image
     );
+  }
+
+  public toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      price: this.price.toNumber(),
+      stringNum: this.stringNum,
+      quant: this.quant,
+      category: this.category,
+      image: this.image,
+    };
   }
 }
