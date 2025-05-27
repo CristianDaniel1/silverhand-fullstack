@@ -14,7 +14,7 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
     });
 
     if (instrumentExists)
-      throw new Error(
+      throw CustomError.conflict(
         `O instrumento com o nome ${createInstrumentDto.name} já existe`
       );
 
@@ -57,8 +57,8 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
       });
 
       if (existing) {
-        throw new Error(
-          `Já existe um instrumento com esse nome, o nome precisa ser único`
+        throw CustomError.conflict(
+          `Já existe um instrumento com o nome ${updateInstrumentDto.name}, o nome precisa ser único`
         );
       }
     }
