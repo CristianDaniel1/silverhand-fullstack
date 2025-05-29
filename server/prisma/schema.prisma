@@ -8,18 +8,45 @@ datasource db {
   url      = env("POSTGRES_URL")
 }
 
-model instrument {
-  id         Int                 @id @default(autoincrement())
-  name       String              @unique @db.VarChar(100)
-  price      Decimal             @db.Decimal(10, 2)
-  stringNum  Int
-  quant      Int
-  image      String?
-  category   InstrumentCategory
+model Instrument {
+  id        Int                @id @default(autoincrement())
+  name      String             @unique @db.VarChar(100)
+  price     Decimal            @db.Decimal(10, 2)
+  stringNum Int                @map("string_num")
+  quant     Int
+  image     String?
+  category  InstrumentCategory
+
+  @@map("instruments")
 }
 
 enum InstrumentCategory {
   guitarra
   contrabaixo
   violao
+
+  @@map("instrument_category")
+}
+
+model User {
+  id          String   @id @db.Uuid
+  name        String   @db.VarChar(100)
+  email       String   @unique
+  cpf         Int      @unique
+  phoneNumber Int?     @map("phone_number")
+  password    String
+  zipCode     Int      @map("zip_code")
+  address     String
+  profilePic  String?  @map("profile_pic")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  role Role @default(USER_ROLE)
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN_ROLE
+  USER_ROLE
 }

@@ -1,4 +1,5 @@
 import { Decimal } from '../../../generated/prisma/runtime/library';
+import { CustomError } from '../../shared/errors/custom.error';
 
 export enum Category {
   GUITARRA = 'guitarra',
@@ -20,8 +21,10 @@ export class InstrumentEntity {
   public static fromObject(object: { [key: string]: any }): InstrumentEntity {
     const { id, name, price, stringNum, quant, category, image } = object;
 
-    if (price < 0) throw new Error('Preço não pode ser negativo');
-    if (stringNum <= 0) throw new Error('Número de cordas inválido');
+    if (price < 0)
+      CustomError.unprocessableEntity('Preço não pode ser negativo');
+    if (stringNum <= 0)
+      CustomError.unprocessableEntity('Número de cordas inválido');
 
     return new InstrumentEntity(
       id,

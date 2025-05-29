@@ -1,5 +1,5 @@
-import { CreateInstrumentDto } from '../../application/use-cases/instruments/dtos/create-Instrument.dto';
-import { UpdateInstrumentDto } from '../../application/use-cases/instruments/dtos/update-instrument.dto';
+import { CreateInstrumentDto } from '../../application/instruments/dtos/create-Instrument.dto';
+import { UpdateInstrumentDto } from '../../application/instruments/dtos/update-instrument.dto';
 import { InstrumentEntity } from '../entities/instrument.entity';
 
 export abstract class InstrumentRepository {

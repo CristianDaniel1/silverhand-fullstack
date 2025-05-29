@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CreateInstrumentDto } from '../../application/use-cases/instruments/dtos/create-Instrument.dto';
-import { UpdateInstrumentDto } from '../../application/use-cases/instruments/dtos/update-instrument.dto';
+import { CreateInstrumentDto } from '../../application/instruments/dtos/create-Instrument.dto';
+import { UpdateInstrumentDto } from '../../application/instruments/dtos/update-instrument.dto';
 import { InstrumentRepository } from '../../domain/repositories/instrument.repository';
 import {
   CreateInstrument,
@@ -8,20 +8,13 @@ import {
   GetInstrument,
   GetInstruments,
   UpdateInstrument,
-} from '../../application/use-cases/instruments';
-import { CustomError } from '../../shared/errors/custom.error';
+} from '../../application/instruments/use-cases';
+import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
 
-export class InstrumentController {
-  constructor(private readonly instrumentRepository: InstrumentRepository) {}
-
-  private handleError = (res: Response, error: unknown) => {
-    if (error instanceof CustomError) {
-      res.status(error.statusCode).json({ error: error.message });
-      return;
-    }
-
-    res.status(500).json({ error: 'Internal Server Error - Check logs' });
-  };
+export class InstrumentController extends ControllerHandleError {
+  constructor(private readonly instrumentRepository: InstrumentRepository) {
+    super();
+  }
 
   public getInstruments = async (req: Request, res: Response) => {
     try {

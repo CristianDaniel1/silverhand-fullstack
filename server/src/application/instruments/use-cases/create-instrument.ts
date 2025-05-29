@@ -1,6 +1,6 @@
 import { InstrumentEntity } from '../../../domain/entities/instrument.entity';
 import { InstrumentRepository } from '../../../domain/repositories/instrument.repository';
-import { CreateInstrumentDto } from './dtos/create-Instrument.dto';
+import { CreateInstrumentDto } from '../dtos/create-Instrument.dto';
 
 export interface CreateInstrumentUseCase {
   execute(dto: CreateInstrumentDto): Promise<InstrumentEntity>;

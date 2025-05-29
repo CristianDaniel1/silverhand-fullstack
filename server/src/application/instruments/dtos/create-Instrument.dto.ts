@@ -1,7 +1,7 @@
-import { Category } from '../../../../domain/entities/instrument.entity';
+import { Category } from '../../../domain/entities/instrument.entity';
 
 export class CreateInstrumentDto {
-  constructor(
+  private constructor(
     public readonly name: string,
     public readonly price: number,
     public readonly stringNum: number,

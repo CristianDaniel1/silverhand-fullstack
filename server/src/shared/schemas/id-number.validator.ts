@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const InstrumentIdSchema = z.object({
+export const IdSchema = z.object({
   params: z.object({
     id: z
       .number({

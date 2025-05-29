@@ -3,7 +3,7 @@ import { InstrumentController } from './controller';
 import { validateData } from '../middlewares/validation-data.middleware';
 import { InstrumentSchema } from './schemas/instrument.validator';
 import { UpdateInstrumentSchema } from './schemas/update-instrument.validator';
-import { InstrumentIdSchema } from './schemas/instrument-id.validator';
+import { IdSchema } from '../../shared/schemas/id-number.validator';
 import { InstrumentDatasourceImpl } from '../../infrastructure/datasources/instrument.datasource.impl';
 import { InstrumentRepositoryImpl } from '../../infrastructure/repositories/instrument.repository.impl';
 
@@ -16,11 +16,7 @@ export class InstrumentRoutes {
 
     const controller = new InstrumentController(instrumentRepository);
 
-    router.get(
-      '/:id',
-      [validateData(InstrumentIdSchema)],
-      controller.getInstrumentById
-    );
+    router.get('/:id', [validateData(IdSchema)], controller.getInstrumentById);
 
     router.get('/', controller.getInstruments);
 
@@ -38,7 +34,7 @@ export class InstrumentRoutes {
 
     router.delete(
       '/:id',
-      [validateData(InstrumentIdSchema)],
+      [validateData(IdSchema)],
       controller.deleteInstrument
     );
 
