@@ -2,16 +2,16 @@ import { Role } from '../../../domain/entities/user.entity';
 
 export class UpdateUserDto {
   private constructor(
-    public id: string,
-    public name?: string,
-    public email?: string,
-    public cpf?: number,
-    public password?: string,
-    public zipCode?: number,
-    public address?: string,
-    public role?: Role,
-    public phoneNumber?: number,
-    public profilePic?: string
+    public readonly id: string,
+    public readonly name?: string,
+    public readonly email?: string,
+    public readonly cpf?: string,
+    public readonly password?: string,
+    public readonly zipCode?: number,
+    public readonly address?: string,
+    public readonly role?: Role,
+    public readonly phoneNumber?: string,
+    public readonly profilePic?: string
   ) {}
 
   get values() {

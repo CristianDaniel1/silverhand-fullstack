@@ -1,14 +1,25 @@
 import { Router } from 'express';
 import { AuthController } from './auth.controller';
+import { validateData } from '../middlewares/validation-data.middleware';
+import { UserSchema } from '../users/schemas/user.validator';
+import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
+import { UserDatasourceImpl } from '../../infrastructure/datasources/user.datasource.impl';
+import { LoginSchema } from './schemas/login-user.validator';
 
 export class AuthRoutes {
   static get routes(): Router {
     const router = Router();
 
-    const controller = new AuthController();
+    const datasource = new UserDatasourceImpl();
+    const userRepository = new UserRepositoryImpl(datasource);
+    const controller = new AuthController(userRepository);
 
-    router.post('/login', controller.loginUser);
-    router.post('/register', controller.registerUser);
+    router.post('/login', [validateData(LoginSchema)], controller.loginUser);
+    router.post(
+      '/register',
+      [validateData(UserSchema)],
+      controller.registerUser
+    );
 
     router.get('/validate-email/:token', controller.validateEmail);
 

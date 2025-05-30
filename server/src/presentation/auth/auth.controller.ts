@@ -1,15 +1,39 @@
 import { Request, Response } from 'express';
+import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
+import { UserRepository } from '../../domain/repositories/user.repository';
+import { RegisterUserDto } from '../../application/auth/dtos/register-user.dto';
+import { RegisterUser } from '../../application/auth/use-cases/register-user';
+import { LoginUserDto } from '../../application/auth/dtos/login-user.dto';
+import { LoginUser } from '../../application/auth/use-cases/login-user';
 
-export class AuthController {
-  constructor() {}
+export class AuthController extends ControllerHandleError {
+  constructor(private readonly userRepository: UserRepository) {
+    super();
+  }
 
-  registerUser = (req: Request, res: Response) => {
-    res.json('register');
+  public registerUser = async (req: Request, res: Response) => {
+    const userDto = RegisterUserDto.create(req.body);
+    try {
+      const user = await new RegisterUser(this.userRepository).execute(userDto);
+
+      res.status(201).json(user);
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
   };
-  loginUser = (req: Request, res: Response) => {
-    res.json('login');
+
+  public loginUser = async (req: Request, res: Response) => {
+    const userDto = LoginUserDto.create(req.body);
+    try {
+      const user = await new LoginUser(this.userRepository).execute(userDto);
+
+      res.status(200).json(user);
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
   };
-  validateEmail = (req: Request, res: Response) => {
+
+  public validateEmail = (req: Request, res: Response) => {
     res.json('vali');
   };
 }

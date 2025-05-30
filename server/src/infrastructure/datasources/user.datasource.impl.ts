@@ -1,3 +1,4 @@
+import { RegisterUserDto } from '../../application/auth/dtos/register-user.dto';
 import { UpdateUserDto } from '../../application/users/dtos/update-user.dto';
 import { prisma } from '../../data/postgres';
 
@@ -6,6 +7,23 @@ import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../shared/errors/custom.error';
 
 export class UserDatasourceImpl implements UserDatasource {
+  async create(registerUserDto: RegisterUserDto): Promise<UserEntity> {
+    const usersExists = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: registerUserDto.email }, { cpf: registerUserDto.cpf }],
+      },
+    });
+
+    if (usersExists)
+      throw CustomError.conflict(`Já existe um usuário com esses dados`);
+
+    const user = await prisma.user.create({
+      data: registerUserDto,
+    });
+
+    return UserEntity.fromObject(user);
+  }
+
   async getAll(): Promise<UserEntity[]> {
     const users = await prisma.user.findMany();
 
@@ -29,15 +47,15 @@ export class UserDatasourceImpl implements UserDatasource {
     });
 
     if (!userEmail) {
-      throw CustomError.notFound(
-        `Usuário com e-mail ${email} não foi encontrado`
+      throw CustomError.badRequest(
+        'Dado(s) fornecido(s) esta(ão) incorreto(s)'
       );
     }
 
     return UserEntity.fromObject(userEmail);
   }
 
-  async findByCpf(cpf: number): Promise<UserEntity> {
+  async findByCpf(cpf: string): Promise<UserEntity> {
     const userCpf = await prisma.user.findFirst({
       where: { cpf },
     });
@@ -53,7 +71,7 @@ export class UserDatasourceImpl implements UserDatasource {
     const { id, values } = updateUserDto;
     const user = await this.findById(id);
 
-    const { cpf, email } = values as { cpf: number; email: string };
+    const { cpf, email } = values as { cpf: string; email: string };
 
     if (email && user.email !== email) {
       const existingEmail = await prisma.user.findUnique({ where: { email } });
