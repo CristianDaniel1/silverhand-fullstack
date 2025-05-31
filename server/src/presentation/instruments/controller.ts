@@ -10,6 +10,8 @@ import {
   UpdateInstrument,
 } from '../../application/instruments/use-cases';
 import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
+import { PaginationDto } from '../../application/instruments/dtos/pagination.dto';
+import { Category } from '../../domain/entities/instrument.entity';
 
 export class InstrumentController extends ControllerHandleError {
   constructor(private readonly instrumentRepository: InstrumentRepository) {
@@ -17,10 +19,18 @@ export class InstrumentController extends ControllerHandleError {
   }
 
   public getInstruments = async (req: Request, res: Response) => {
+    const { page = 1, limit = 10, category } = req.query;
+
+    const paginationDto = PaginationDto.create(
+      +page,
+      +limit,
+      category as Category | undefined
+    );
+
     try {
       const instruments = await new GetInstruments(
         this.instrumentRepository
-      ).execute();
+      ).execute(paginationDto);
       res.json(instruments);
     } catch (error: unknown) {
       this.handleError(res, error);

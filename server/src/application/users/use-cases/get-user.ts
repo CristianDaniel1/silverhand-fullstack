@@ -1,14 +1,15 @@
-import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserRepository } from '../../../domain/repositories/user.repository';
+import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
 
 export interface GetUserUseCase {
-  execute(id: string): Promise<UserEntity>;
+  execute(id: string): Promise<UserResponseDto>;
 }
 
 export class GetUser implements GetUserUseCase {
   constructor(private readonly repository: UserRepository) {}
 
-  execute(id: string): Promise<UserEntity> {
-    return this.repository.findById(id);
+  async execute(id: string): Promise<UserResponseDto> {
+    const user = await this.repository.findById(id);
+    return UserResponseDto.fromEntity(user);
   }
 }

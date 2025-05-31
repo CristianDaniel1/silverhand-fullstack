@@ -15,11 +15,13 @@ export class AuthController extends ControllerHandleError {
   public registerUser = async (req: Request, res: Response) => {
     const userDto = RegisterUserDto.create(req.body);
     try {
-      const user = await new RegisterUser(this.userRepository).execute(userDto);
-      const { token, ...userRes } = user;
+      const userRegister = await new RegisterUser(this.userRepository).execute(
+        userDto
+      );
+      const { token, user } = userRegister;
 
       CookieParserAdapter.generateCookie(token, res);
-      res.status(201).json(userRes);
+      res.status(201).json(user);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
@@ -28,11 +30,13 @@ export class AuthController extends ControllerHandleError {
   public loginUser = async (req: Request, res: Response) => {
     const userDto = LoginUserDto.create(req.body);
     try {
-      const user = await new LoginUser(this.userRepository).execute(userDto);
+      const userLogin = await new LoginUser(this.userRepository).execute(
+        userDto
+      );
 
-      const { token, ...userRes } = user;
+      const { token, user } = userLogin;
       CookieParserAdapter.generateCookie(token, res);
-      res.status(200).json(userRes);
+      res.status(200).json(user);
     } catch (error: unknown) {
       this.handleError(res, error);
     }

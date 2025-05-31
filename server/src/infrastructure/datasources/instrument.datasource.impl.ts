@@ -1,8 +1,10 @@
 import { CreateInstrumentDto } from '../../application/instruments/dtos/create-Instrument.dto';
+import { PaginationDto } from '../../application/instruments/dtos/pagination.dto';
 import { UpdateInstrumentDto } from '../../application/instruments/dtos/update-instrument.dto';
 import { prisma } from '../../data/postgres';
 import { InstrumentDatasource } from '../../domain/datasources/instrument.datasource';
 import { InstrumentEntity } from '../../domain/entities/instrument.entity';
+import { PaginationResponseDto } from '../../presentation/instruments/dtos/pagination-response.dto';
 import { CustomError } from '../../shared/errors/custom.error';
 
 export class InstrumentDatasourceImpl implements InstrumentDatasource {
@@ -25,12 +27,39 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
     return InstrumentEntity.fromObject(instrument);
   }
 
-  async getAll(): Promise<InstrumentEntity[]> {
-    const instruments = await prisma.instrument.findMany();
+  async getAll(
+    paginationDto: PaginationDto
+  ): Promise<PaginationResponseDto<InstrumentEntity>> {
+    const { page, limit } = paginationDto;
 
-    return instruments.map(instrument =>
+    const where = paginationDto.category
+      ? { category: paginationDto.category }
+      : undefined;
+
+    const [instruments, total] = await Promise.all([
+      prisma.instrument.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        where,
+      }),
+      prisma.instrument.count({ where }),
+    ]);
+
+    const lastPage = Math.ceil(total / limit);
+
+    const instrumentsData = instruments.map(instrument =>
       InstrumentEntity.fromObject(instrument)
     );
+
+    return {
+      page,
+      limit,
+      total,
+      lastPage,
+      hasNextPage: page < lastPage,
+      hasPreviousPage: page > 1,
+      instruments: instrumentsData,
+    };
   }
 
   async findById(id: number): Promise<InstrumentEntity> {

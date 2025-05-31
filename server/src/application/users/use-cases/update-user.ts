@@ -1,15 +1,28 @@
+import { Role } from '../../../../generated/prisma';
 import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserRepository } from '../../../domain/repositories/user.repository';
+import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
+import { CustomError } from '../../../shared/errors/custom.error';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 
 export interface UpdateUserUseCase {
-  execute(dto: UpdateUserDto): Promise<UserEntity>;
+  execute(
+    dto: UpdateUserDto,
+    loggedUser?: UserEntity
+  ): Promise<UserResponseDto>;
 }
 
 export class UpdateUser implements UpdateUserUseCase {
   constructor(private readonly repository: UserRepository) {}
 
-  execute(dto: UpdateUserDto): Promise<UserEntity> {
-    return this.repository.updateById(dto);
+  async execute(
+    dto: UpdateUserDto,
+    loggedUser?: UserEntity
+  ): Promise<UserResponseDto> {
+    if (loggedUser?.role !== Role.ADMIN_ROLE && loggedUser?.id !== dto.id)
+      throw CustomError.forbidden('Ação não permitida');
+
+    const user = await this.repository.updateById(dto);
+    return UserResponseDto.fromEntity(user);
   }
 }

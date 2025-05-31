@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { AuthController } from './auth.controller';
 import { validateData } from '../middlewares/validation-data.middleware';
-import { UserSchema } from '../users/schemas/user.validator';
 import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
 import { UserDatasourceImpl } from '../../infrastructure/datasources/user.datasource.impl';
 import { LoginSchema } from './schemas/login-user.validator';
+import { RegisterUserSchema } from './schemas/register-user.validator';
 
 export class AuthRoutes {
   static get routes(): Router {
@@ -17,7 +17,7 @@ export class AuthRoutes {
     router.post('/login', [validateData(LoginSchema)], controller.loginUser);
     router.post(
       '/register',
-      [validateData(UserSchema)],
+      [validateData(RegisterUserSchema)],
       controller.registerUser
     );
 

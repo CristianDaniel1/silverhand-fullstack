@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
 import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
 import { UserRepository } from '../../domain/repositories/user.repository';
-import { GetUsers } from '../../application/users/use-cases/get-users';
-import { GetUser } from '../../application/users/use-cases/get-user';
+import { CreateUserDto } from '../../application/users/dtos/create-user.dto';
 import { UpdateUserDto } from '../../application/users/dtos/update-user.dto';
-import { UpdateUser } from '../../application/users/use-cases/update-user';
-import { DeleteUser } from '../../application/users/use-cases/delete-user';
+import {
+  CreateUser,
+  GetUser,
+  GetUsers,
+  UpdateUser,
+  DeleteUser,
+} from '../../application/users/use-cases';
 
 export class UserController extends ControllerHandleError {
   constructor(private readonly userRepository: UserRepository) {
@@ -23,6 +27,7 @@ export class UserController extends ControllerHandleError {
 
   public getUserById = async (req: Request, res: Response) => {
     const { id } = req.params;
+
     try {
       const user = await new GetUser(this.userRepository).execute(id);
       res.json(user);
@@ -31,8 +36,22 @@ export class UserController extends ControllerHandleError {
     }
   };
 
+  public createUser = async (req: Request, res: Response) => {
+    const instrumentDto = CreateUserDto.create(req.body);
+
+    try {
+      const instrument = await new CreateUser(this.userRepository).execute(
+        instrumentDto
+      );
+      res.status(201).json(instrument);
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
+  };
+
   public updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const loggedUser = req.user;
 
     const updatedUserDto = UpdateUserDto.create({
       ...req.body,
@@ -41,7 +60,8 @@ export class UserController extends ControllerHandleError {
 
     try {
       const user = await new UpdateUser(this.userRepository).execute(
-        updatedUserDto
+        updatedUserDto,
+        loggedUser
       );
       res.json(user);
     } catch (error: unknown) {
@@ -51,9 +71,13 @@ export class UserController extends ControllerHandleError {
 
   public deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const loggedUser = req.user;
 
     try {
-      const user = await new DeleteUser(this.userRepository).execute(id);
+      const user = await new DeleteUser(this.userRepository).execute(
+        id,
+        loggedUser
+      );
       res.json(user);
     } catch (error: unknown) {
       this.handleError(res, error);

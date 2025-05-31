@@ -6,6 +6,10 @@ import { UserDatasourceImpl } from '../../infrastructure/datasources/user.dataso
 import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
 import { UuidSchema } from '../../shared/schemas/uuid.validator';
 import { UpdateUserSchema } from './schemas/update-user.validator';
+import { AuthMiddleWare } from '../middlewares/auth.middleware';
+import { AuthRolesMiddleware } from '../middlewares/auth-roles.middleware';
+import { Role } from '../../domain/entities/user.entity';
+import { UserSchema } from './schemas/user.validator';
 
 export class UserRoutes {
   static get routes(): Router {
@@ -18,7 +22,20 @@ export class UserRoutes {
 
     router.get('/:id', [validateData(UuidSchema)], controller.getUserById);
 
-    router.get('/', controller.getUsers);
+    router.get(
+      '/',
+      [AuthRolesMiddleware.authorizeRoles(Role.ADMIN)],
+      controller.getUsers
+    );
+
+    router.post(
+      '/',
+      [
+        AuthRolesMiddleware.authorizeRoles(Role.ADMIN),
+        validateData(UserSchema),
+      ],
+      controller.createUser
+    );
 
     router.put('/:id', [validateData(UpdateUserSchema)], controller.updateUser);
 

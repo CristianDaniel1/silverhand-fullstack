@@ -1,6 +1,7 @@
 import { BcryptAdapter } from '../../../config/bcrypt.adapter';
 import { JwtAdapter } from '../../../config/jwt.adapter';
 import { UserRepository } from '../../../domain/repositories/user.repository';
+import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
 import { CustomError } from '../../../shared/errors/custom.error';
 import { LoginUserDto } from '../dtos/login-user.dto';
 
@@ -26,16 +27,13 @@ export class LoginUser implements LoginUserUseCase {
     if (!isMatching)
       throw CustomError.badRequest('Usuário ou senha incorretos');
 
-    const { password, ...userEntity } = user;
-
-    const token = await JwtAdapter.generateToken({
-      id: user.id,
-      email: user.email,
-    });
+    const token = await JwtAdapter.generateToken({ id: user.id });
     if (!token) throw CustomError.internalServer('Error while creating JWT');
 
+    const userDto = UserResponseDto.fromEntity(user);
+
     return {
-      user: userEntity,
+      user: userDto,
       token,
     };
   }
