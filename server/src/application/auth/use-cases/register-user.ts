@@ -11,7 +11,7 @@ export class RegisterUser implements RegisterUserUseCase {
 
   async execute(dto: RegisterUserDto): Promise<any> {
     const userDto = { ...dto };
-    userDto.password = BcryptAdapter.hash(dto.password);
+    userDto.password = await BcryptAdapter.hashAsync(dto.password);
 
     const { password, ...userEntity } = await this.repository.create(userDto);
 

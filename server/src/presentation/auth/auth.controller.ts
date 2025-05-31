@@ -5,6 +5,7 @@ import { RegisterUserDto } from '../../application/auth/dtos/register-user.dto';
 import { RegisterUser } from '../../application/auth/use-cases/register-user';
 import { LoginUserDto } from '../../application/auth/dtos/login-user.dto';
 import { LoginUser } from '../../application/auth/use-cases/login-user';
+import { CookieParserAdapter } from '../../config/cookie-parser.adapter';
 
 export class AuthController extends ControllerHandleError {
   constructor(private readonly userRepository: UserRepository) {
@@ -15,8 +16,10 @@ export class AuthController extends ControllerHandleError {
     const userDto = RegisterUserDto.create(req.body);
     try {
       const user = await new RegisterUser(this.userRepository).execute(userDto);
+      const { token, ...userRes } = user;
 
-      res.status(201).json(user);
+      CookieParserAdapter.generateCookie(token, res);
+      res.status(201).json(userRes);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
@@ -27,13 +30,11 @@ export class AuthController extends ControllerHandleError {
     try {
       const user = await new LoginUser(this.userRepository).execute(userDto);
 
-      res.status(200).json(user);
+      const { token, ...userRes } = user;
+      CookieParserAdapter.generateCookie(token, res);
+      res.status(200).json(userRes);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
-  };
-
-  public validateEmail = (req: Request, res: Response) => {
-    res.json('vali');
   };
 }

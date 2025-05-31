@@ -21,8 +21,6 @@ export class AuthRoutes {
       controller.registerUser
     );
 
-    router.get('/validate-email/:token', controller.validateEmail);
-
     return router;
   }
 }

@@ -19,7 +19,10 @@ export class LoginUser implements LoginUserUseCase {
         'Dado(s) fornecido(s) esta(ão) incorreto(s)'
       );
 
-    const isMatching = BcryptAdapter.compare(dto.password, user.password);
+    const isMatching = await BcryptAdapter.compareAsync(
+      dto.password,
+      user.password
+    );
     if (!isMatching)
       throw CustomError.badRequest('Usuário ou senha incorretos');
 

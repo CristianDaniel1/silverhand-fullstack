@@ -11,6 +11,7 @@ const envSchema = z.object({
   POSTGRES_DB: z.string().min(1, 'database name is required'),
 
   JWT_SEED: z.string().min(1, 'JWT SEED is required'),
+  NODE_ENV: z.string(),
 });
 
 process.loadEnvFile();
@@ -35,4 +36,5 @@ export const {
   POSTGRES_PASSWORD,
   POSTGRES_DB,
   JWT_SEED,
+  NODE_ENV,
 } = data!;
