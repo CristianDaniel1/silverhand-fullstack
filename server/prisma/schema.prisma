@@ -17,31 +17,38 @@ model Instrument {
   image     String?
   category  InstrumentCategory
 
+  cartItem  CartItem[]
+  OrderItem OrderItem[]
+
   @@map("instruments")
 }
 
 enum InstrumentCategory {
-  guitarra
-  contrabaixo
-  violao
+  GUITARRA
+  CONTRABAIXO
+  VIOLAO
 
   @@map("instrument_category")
 }
 
 model User {
-  id          String   @id @default(uuid()) @db.Uuid
-  name        String   @db.VarChar(100)
-  email       String   @unique
-  cpf         String   @unique
-  phoneNumber String?  @map("phone_number")
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @db.VarChar(100)
+  email       String  @unique
+  cpf         String  @unique
+  phoneNumber String? @map("phone_number")
   password    String
-  zipCode     Int      @map("zip_code")
+  zipCode     Int     @map("zip_code")
   address     String
-  profilePic  String?  @map("profile_pic")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  profilePic  String? @map("profile_pic")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   role Role @default(USER_ROLE)
+
+  cart   Cart?
+  orders Order[]
 
   @@map("users")
 }
@@ -49,4 +56,67 @@ model User {
 enum Role {
   ADMIN_ROLE
   USER_ROLE
+
+  @@map("role")
+}
+
+model Cart {
+  id     Int        @id @default(autoincrement())
+  userId String     @unique @map("user_id") @db.Uuid
+  items  CartItem[]
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("carts")
+}
+
+model CartItem {
+  id           Int @id @default(autoincrement())
+  instrumentId Int @map("instrument_id")
+  cartId       Int @map("cart_id")
+  quantity     Int @default(1)
+
+  instrument Instrument @relation(fields: [instrumentId], references: [id])
+  Cart       Cart       @relation(fields: [cartId], references: [id])
+
+  @@unique([cartId, instrumentId])
+  @@map("cart_item")
+}
+
+model Order {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  cartId     Int      @unique @map("cart_id")
+  totalPrice Decimal  @db.Decimal(10, 2)
+  orderedAt  DateTime @default(now()) @map("ordered_at")
+
+  status OrderStatus @default(PENDING)
+
+  user      User        @relation(fields: [userId], references: [id])
+  OrderItem OrderItem[]
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  COMPLETED
+  PENDING
+  CANCELED
+  RETURNED
+
+  @@map("order_status")
+}
+
+model OrderItem {
+  id           Int     @id @default(autoincrement())
+  orderId      String  @map("order_id") @db.Uuid
+  instrumentId Int     @map("instrument_id")
+  quantity     Int     @default(1)
+  priceAtOrder Decimal @map("price_at_order") @db.Decimal(10, 2)
+
+  order      Order      @relation(fields: [orderId], references: [id])
+  instrument Instrument @relation(fields: [instrumentId], references: [id])
+
+  @@unique([orderId, instrumentId])
+  @@map("order_items")
 }

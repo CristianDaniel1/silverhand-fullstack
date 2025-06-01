@@ -2,9 +2,9 @@ import { Decimal } from '../../../generated/prisma/runtime/library';
 import { CustomError } from '../../shared/errors/custom.error';
 
 export enum Category {
-  GUITARRA = 'guitarra',
-  CONTRABAIXO = 'contrabaixo',
-  VIOLAO = 'violao',
+  GUITARRA = 'GUITARRA',
+  CONTRABAIXO = 'CONTRABAIXO',
+  VIOLAO = 'VIOLAO',
 }
 
 export class InstrumentEntity {
