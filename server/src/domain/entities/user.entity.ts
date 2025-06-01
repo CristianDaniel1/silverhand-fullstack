@@ -15,6 +15,8 @@ export class UserEntity {
     public zipCode: number,
     public address: string,
     public role: Role = Role.USER,
+    public createdAt: Date,
+    public updatedAt: Date,
     public phoneNumber?: string,
     public profilePic?: string
   ) {}
@@ -29,6 +31,8 @@ export class UserEntity {
       zipCode,
       address,
       role,
+      createdAt,
+      updatedAt,
       phoneNumber,
       profilePic,
     } = object;
@@ -46,6 +50,8 @@ export class UserEntity {
       zipCode,
       address,
       role,
+      createdAt,
+      updatedAt,
       phoneNumber,
       profilePic
     );

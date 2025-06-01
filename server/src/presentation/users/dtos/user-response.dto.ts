@@ -9,6 +9,8 @@ export class UserResponseDto {
     public readonly zipCode: number,
     public readonly address: string,
     public readonly role: Role,
+    public readonly createdAt: Date,
+    public readonly updatedAt: Date,
     public readonly phoneNumber?: string,
     public readonly profilePic?: string
   ) {}
@@ -22,6 +24,8 @@ export class UserResponseDto {
       user.zipCode,
       user.address,
       user.role,
+      user.createdAt,
+      user.updatedAt,
       user.phoneNumber,
       user.profilePic
     );

@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import path from 'path';
+import { corsMiddleware } from './middlewares/cors.middleware';
 
 interface Options {
   port: number;
@@ -22,32 +22,27 @@ export class Server {
     this.port = port;
     this.publicPath = publicPath;
     this.routes = routes;
+
+    this.configure();
   }
 
-  async start() {
+  private configure() {
     // * Middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+
     this.app.use(compression());
     this.app.use(cookieParser());
-
-    // * Public Folder
-    this.app.use(express.static(this.publicPath));
-
+    this.app.use(corsMiddleware());
+    // // * Public Folder
+    // this.app.use(express.static(this.publicPath));
     // * Routes
     this.app.use(this.routes);
+  }
 
-    // * SPA
-    // this.app.get('*', (req, res) => {
-    //   const indexPath = path.join(
-    //     __dirname + `../../../${this.publicPath}/index.html`
-    //   );
-
-    //   res.sendFile(indexPath);
-    // });
-
+  async start() {
     this.serverListener = this.app.listen(this.port, () => {
-      console.log(`Server running on port ${this.port}`);
+      console.log(`Server listening on port ${this.port}`);
     });
   }
 
