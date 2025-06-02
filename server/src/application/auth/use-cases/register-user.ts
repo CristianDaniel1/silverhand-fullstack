@@ -21,7 +21,7 @@ export class RegisterUser implements RegisterUserUseCase {
     const user = await this.repository.create(userDto);
 
     const token = await JwtAdapter.generateToken({ id: user.id });
-    if (!token) throw CustomError.internalServer('Error while creating JWT');
+    if (!token) throw CustomError.internalServer('Erro ao criar JWT');
 
     const userResponse = UserResponseDto.fromEntity(user);
 

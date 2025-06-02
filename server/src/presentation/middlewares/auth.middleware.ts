@@ -3,14 +3,6 @@ import { JwtAdapter } from '../../config/jwt.adapter';
 import { prisma } from '../../data/postgres';
 import { UserEntity } from '../../domain/entities/user.entity';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: UserEntity;
-    }
-  }
-}
-
 export class AuthMiddleWare {
   static async validateJWT(req: Request, res: Response, next: NextFunction) {
     const authorization = req.header('Authorization');
