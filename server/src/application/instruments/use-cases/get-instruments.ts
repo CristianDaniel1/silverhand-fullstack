@@ -1,6 +1,6 @@
 import { InstrumentEntity } from '../../../domain/entities/instrument.entity';
 import { InstrumentRepository } from '../../../domain/repositories/instrument.repository';
-import { PaginationResponseDto } from '../../../presentation/instruments/dtos/pagination-response.dto';
+import { PaginationResponseDto } from '../dtos/pagination-response.dto';
 import { PaginationDto } from '../dtos/pagination.dto';
 
 export interface GetInstrumentsUseCase {

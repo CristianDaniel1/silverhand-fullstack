@@ -1,5 +1,5 @@
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
+import { UserResponseDto } from '../dtos/user-response.dto';
 
 export interface GetUsersUseCase {
   execute(): Promise<UserResponseDto[]>;

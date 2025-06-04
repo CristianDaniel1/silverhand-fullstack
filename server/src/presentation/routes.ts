@@ -4,6 +4,7 @@ import { AuthRoutes } from './auth/routes';
 import { UserRoutes } from './users/routes';
 import { AuthMiddleWare } from './middlewares/auth.middleware';
 import { CartRoutes } from './carts/routes';
+import { OrderRoutes } from './orders/routes';
 
 export class AppRoutes {
   static get routes(): Router {
@@ -22,6 +23,12 @@ export class AppRoutes {
       `${endpoint}/cart`,
       [AuthMiddleWare.validateJWT],
       CartRoutes.routes
+    );
+
+    router.use(
+      `${endpoint}/orders`,
+      [AuthMiddleWare.validateJWT],
+      OrderRoutes.routes
     );
 
     return router;

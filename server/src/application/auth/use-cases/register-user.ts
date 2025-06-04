@@ -1,8 +1,8 @@
 import { BcryptAdapter } from '../../../config/bcrypt.adapter';
 import { JwtAdapter } from '../../../config/jwt.adapter';
-import { Role, UserEntity } from '../../../domain/entities/user.entity';
+import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
+import { UserResponseDto } from '../../users/dtos/user-response.dto';
 import { CustomError } from '../../../shared/errors/custom.error';
 import { RegisterUserDto } from '../dtos/register-user.dto';
 

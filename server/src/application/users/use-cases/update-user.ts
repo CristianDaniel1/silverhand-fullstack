@@ -1,6 +1,6 @@
 import { Role, UserEntity } from '../../../domain/entities/user.entity';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
+import { UserResponseDto } from '../dtos/user-response.dto';
 import { CustomError } from '../../../shared/errors/custom.error';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 

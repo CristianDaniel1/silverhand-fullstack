@@ -8,11 +8,7 @@ export class CartItemEntity {
     public instrumentId: number,
     public quantity: number,
     public instrument?: InstrumentEntity
-  ) {
-    if (quantity <= 0) {
-      throw CustomError.unprocessableEntity('Quantidade deve ser maior que 0');
-    }
-  }
+  ) {}
 
   static fromObject(object: { [key: string]: any }): CartItemEntity {
     const { id, cartId, quantity, instrumentId, instrument } = object;

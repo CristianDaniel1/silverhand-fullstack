@@ -6,14 +6,13 @@ export class CartEntity {
     public id: number,
     public userId: string,
     public items: CartItemEntity[]
-  ) {
-    if (!userId) {
-      throw CustomError.unprocessableEntity('Usuário é obrigatório');
-    }
-  }
+  ) {}
 
   static fromObject(object: { [key: string]: any }): CartEntity {
     const { id, userId, items } = object;
+    if (!userId) {
+      throw CustomError.unprocessableEntity('Usuário é obrigatório');
+    }
 
     return new CartEntity(
       id,

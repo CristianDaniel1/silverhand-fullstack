@@ -1,5 +1,5 @@
-import { CreateCartItemDto } from '../../application/cart-items/dtos/create-cart-item.dto';
-import { UpdateCartItemDto } from '../../application/cart-items/dtos/update-cart-item.dtos';
+import { CreateCartItemDto } from '../../application/carts/dtos/create-cart-item.dto';
+import { UpdateCartItemDto } from '../../application/carts/dtos/update-cart-item.dtos';
 import { prisma } from '../../data/postgres';
 import { CartItemDatasource } from '../../domain/datasources/cart-item.datasource';
 import { CartItemEntity } from '../../domain/entities/cart-item.entity';
@@ -29,10 +29,12 @@ export class CartItemDatasourceImpl implements CartItemDatasource {
     return CartItemEntity.fromObject(cartItem);
   }
 
-  async create(createCartItemDto: CreateCartItemDto): Promise<CartItemEntity> {
-    console.log(createCartItemDto);
+  async create(
+    createCartItemDto: CreateCartItemDto,
+    cartId: number
+  ): Promise<CartItemEntity> {
     const item = await prisma.cartItem.create({
-      data: createCartItemDto,
+      data: { cartId, ...createCartItemDto },
     });
 
     return CartItemEntity.fromObject(item);

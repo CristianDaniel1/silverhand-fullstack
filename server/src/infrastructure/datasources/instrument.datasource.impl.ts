@@ -4,7 +4,7 @@ import { UpdateInstrumentDto } from '../../application/instruments/dtos/update-i
 import { prisma } from '../../data/postgres';
 import { InstrumentDatasource } from '../../domain/datasources/instrument.datasource';
 import { InstrumentEntity } from '../../domain/entities/instrument.entity';
-import { PaginationResponseDto } from '../../presentation/instruments/dtos/pagination-response.dto';
+import { PaginationResponseDto } from '../../application/instruments/dtos/pagination-response.dto';
 import { CustomError } from '../../shared/errors/custom.error';
 
 export class InstrumentDatasourceImpl implements InstrumentDatasource {

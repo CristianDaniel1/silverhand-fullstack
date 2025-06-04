@@ -1,10 +1,11 @@
-import { CreateCartItemDto } from '../../application/cart-items/dtos/create-cart-item.dto';
-import { UpdateCartItemDto } from '../../application/cart-items/dtos/update-cart-item.dtos';
+import { CreateCartItemDto } from '../../application/carts/dtos/create-cart-item.dto';
+import { UpdateCartItemDto } from '../../application/carts/dtos/update-cart-item.dtos';
 import { CartItemEntity } from '../entities/cart-item.entity';
 
 export abstract class CartItemDatasource {
   abstract create(
-    createCartItemDto: CreateCartItemDto
+    createCartItemDto: CreateCartItemDto,
+    cartId: number
   ): Promise<CartItemEntity>;
   abstract findByCartIdAndInstrumentId(
     cartId: number,

@@ -3,10 +3,10 @@ import { CartItemRepository } from '../../domain/repositories/cart-item.reposito
 import { CartRepository } from '../../domain/repositories/cart.repository';
 import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
 import { AddToCart } from '../../application/carts/use-cases/add-to-cart';
-import { CreateCartItemDto } from '../../application/cart-items/dtos/create-cart-item.dto';
+import { CreateCartItemDto } from '../../application/carts/dtos/create-cart-item.dto';
 import { GetCartitems } from '../../application/carts/use-cases/get-cart-items';
 import { UpdateCartItem } from '../../application/carts/use-cases/update-item';
-import { UpdateCartItemDto } from '../../application/cart-items/dtos/update-cart-item.dtos';
+import { UpdateCartItemDto } from '../../application/carts/dtos/update-cart-item.dtos';
 import { DeleteCartItem } from '../../application/carts/use-cases/delete-item';
 import { DeleteCart } from '../../application/carts/use-cases/delete-cart';
 

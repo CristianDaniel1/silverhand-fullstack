@@ -4,7 +4,7 @@ import { UpdateInstrumentDto } from '../../application/instruments/dtos/update-i
 import { InstrumentDatasource } from '../../domain/datasources/instrument.datasource';
 import { InstrumentEntity } from '../../domain/entities/instrument.entity';
 import { InstrumentRepository } from '../../domain/repositories/instrument.repository';
-import { PaginationResponseDto } from '../../presentation/instruments/dtos/pagination-response.dto';
+import { PaginationResponseDto } from '../../application/instruments/dtos/pagination-response.dto';
 
 export class InstrumentRepositoryImpl implements InstrumentRepository {
   constructor(private readonly datasource: InstrumentDatasource) {}

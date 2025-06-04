@@ -1,7 +1,7 @@
 import { BcryptAdapter } from '../../../config/bcrypt.adapter';
 import { JwtAdapter } from '../../../config/jwt.adapter';
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { UserResponseDto } from '../../../presentation/users/dtos/user-response.dto';
+import { UserResponseDto } from '../../users/dtos/user-response.dto';
 import { CustomError } from '../../../shared/errors/custom.error';
 import { LoginUserDto } from '../dtos/login-user.dto';
 

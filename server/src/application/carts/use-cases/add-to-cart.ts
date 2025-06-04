@@ -1,6 +1,6 @@
 import { CartItemRepository } from '../../../domain/repositories/cart-item.repository';
 import { CartRepository } from '../../../domain/repositories/cart.repository';
-import { CreateCartItemDto } from '../../cart-items/dtos/create-cart-item.dto';
+import { CreateCartItemDto } from '../dtos/create-cart-item.dto';
 
 export interface AddToCartUseCase {
   execute(dto: CreateCartItemDto, userId: string): Promise<void>;
@@ -25,14 +25,16 @@ export class AddToCart implements AddToCartUseCase {
     if (existingItem) {
       await this.cartItemRepository.updateById({
         id: existingItem.id,
-        quantity: existingItem.quantity + dto.quantity,
+        quantity: existingItem.quantity + (dto.quantity || 1),
       });
     } else {
-      await this.cartItemRepository.create({
-        cartId,
-        instrumentId: dto.instrumentId,
-        quantity: dto.quantity,
-      });
+      await this.cartItemRepository.create(
+        {
+          instrumentId: dto.instrumentId,
+          quantity: dto.quantity,
+        },
+        cartId
+      );
     }
   }
 
