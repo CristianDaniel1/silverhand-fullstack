@@ -6,6 +6,7 @@ import { InstrumentDatasource } from '../../domain/datasources/instrument.dataso
 import { InstrumentEntity } from '../../domain/entities/instrument.entity';
 import { PaginationResponseDto } from '../../application/instruments/dtos/pagination-response.dto';
 import { CustomError } from '../../shared/errors/custom.error';
+import { Prisma } from '../../../generated/prisma';
 
 export class InstrumentDatasourceImpl implements InstrumentDatasource {
   async create(
@@ -30,11 +31,18 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
   async getAll(
     paginationDto: PaginationDto
   ): Promise<PaginationResponseDto<InstrumentEntity>> {
-    const { page, limit } = paginationDto;
+    const { page, limit, category, stringNum, search } = paginationDto;
 
-    const where = paginationDto.category
-      ? { category: paginationDto.category }
-      : undefined;
+    const where: Prisma.InstrumentWhereInput = {
+      ...(category && { category }),
+      ...(stringNum && { stringNum }),
+      ...(search && {
+        name: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      }),
+    };
 
     const [instruments, total] = await Promise.all([
       prisma.instrument.findMany({
@@ -47,10 +55,6 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
 
     const lastPage = Math.ceil(total / limit);
 
-    const instrumentsData = instruments.map(instrument =>
-      InstrumentEntity.fromObject(instrument)
-    );
-
     return {
       page,
       limit,
@@ -58,7 +62,7 @@ export class InstrumentDatasourceImpl implements InstrumentDatasource {
       lastPage,
       hasNextPage: page < lastPage,
       hasPreviousPage: page > 1,
-      instruments: instrumentsData,
+      instruments: instruments.map(InstrumentEntity.fromObject),
     };
   }
 

@@ -19,13 +19,15 @@ export class InstrumentController extends ControllerHandleError {
   }
 
   public getInstruments = async (req: Request, res: Response) => {
-    const { page = 1, limit = 10, category } = req.query;
+    const { page = 1, limit = 10, category, stringNum, search } = req.query;
 
-    const paginationDto = PaginationDto.create(
-      +page,
-      +limit,
-      category as Category | undefined
-    );
+    const paginationDto = PaginationDto.createFromQuery({
+      page,
+      limit,
+      category,
+      stringNum,
+      search,
+    });
 
     try {
       const instruments = await new GetInstruments(
