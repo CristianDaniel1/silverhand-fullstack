@@ -5,6 +5,7 @@ import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repos
 import { UserDatasourceImpl } from '../../infrastructure/datasources/user.datasource.impl';
 import { LoginSchema } from './schemas/login-user.validator';
 import { RegisterUserSchema } from './schemas/register-user.validator';
+import { AuthMiddleWare } from '../middlewares/auth.middleware';
 
 export class AuthRoutes {
   static get routes(): Router {
@@ -20,6 +21,8 @@ export class AuthRoutes {
       [validateData(RegisterUserSchema)],
       controller.registerUser
     );
+
+    router.get('/check', [AuthMiddleWare.validateJWT], controller.checkAuth);
 
     return router;
   }

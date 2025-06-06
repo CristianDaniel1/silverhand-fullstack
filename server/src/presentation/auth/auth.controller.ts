@@ -41,4 +41,15 @@ export class AuthController extends ControllerHandleError {
       this.handleError(res, error);
     }
   };
+
+  public checkAuth = async (req: Request, res: Response) => {
+    try {
+      const { user } = req.body;
+      const { id, email, name, role } = user;
+
+      res.status(200).json({ id, email, name, role });
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
+  };
 }
