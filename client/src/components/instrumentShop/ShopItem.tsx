@@ -16,7 +16,7 @@ export const ShopItem = ({ id, name, price, image, ...props }: Instrument) => {
   return (
     <li className="overflow-clip border border-secundary/10 rounded relative pb-12">
       <Link
-        to={`/instrumentos-de-cordas/${id}`}
+        to={`/instrumentos-de-cordas/${name}`}
         className="h-full flex flex-col instrument"
       >
         <div className="overflow-clip aspect-square">

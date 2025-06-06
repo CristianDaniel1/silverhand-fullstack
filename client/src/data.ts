@@ -22,6 +22,16 @@ import img2 from './assets/playing-guitar-2.webp';
 import img3 from './assets/guitar-img-1.webp';
 import img4 from './assets/guitar-img-2.webp';
 
+export const strings = [6, 5, 4];
+export const categoriesObj = {
+  TODAS: 'todas',
+  GUITARRA: 'guitarra',
+  CONTRABAIXO: 'contrabaixo',
+  VIOLAO: 'violão',
+};
+
+export const categories = ['todas', 'guitarra', 'contrabaixo', 'violão'];
+
 export const instruments: Instrument[] = [
   {
     id: 'guitarra-fender-stratocaster-player-ii-hss-transparent-cherry-Burst',

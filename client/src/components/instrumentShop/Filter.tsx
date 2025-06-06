@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { FadersIcon } from '../icons/FadersIcon';
-import { useFilterStore } from '../../store/filterStore';
-
-const strings = [6, 5, 4];
-const categories = ['todas', 'guitarra', 'contrabaixo', 'violão'];
+import { FadersIcon } from '../icons/FadersIcon.tsx';
+import { useFilterStore } from '../../store/filterStore.ts';
+import { InstrumentCategory } from '../../types.ts';
+import { categories, categoriesObj, strings } from '../../data.ts';
 
 interface FilterProps {
-  currentCateg: string;
+  currentCateg: InstrumentCategory | null;
   currentStringNum: number | undefined;
 }
 
@@ -16,8 +15,16 @@ export const Filter = ({ currentCateg, currentStringNum }: FilterProps) => {
   const setStringNum = useFilterStore(state => state.setStringNum);
   const clearFilters = useFilterStore(state => state.clearFilters);
 
-  function handleCategoryClick(categ: string) {
-    setCategory(categ);
+  function handleCategoryClick(categ: InstrumentCategory | string) {
+    let categFormatted: InstrumentCategory;
+    if (categ === 'todas') {
+      setCategory(null);
+      return;
+    }
+    if (categ === 'violão') categFormatted = 'VIOLAO';
+    else categFormatted = categ.toUpperCase() as InstrumentCategory;
+
+    setCategory(categFormatted);
   }
 
   function handleStringClick(stringNum: number) {
@@ -55,7 +62,11 @@ export const Filter = ({ currentCateg, currentStringNum }: FilterProps) => {
               key={categ}
               onClick={() => handleCategoryClick(categ)}
               className={`hover:text-primary duration-200 tracking-wide capitalize
-           ${currentCateg === categ ? 'text-primary' : 'text-secundary'}`}
+           ${
+             categoriesObj[currentCateg || 'TODAS'] === categ
+               ? 'text-primary'
+               : 'text-secundary'
+           }`}
             >
               {categ}
             </button>

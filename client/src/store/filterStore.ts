@@ -1,23 +1,24 @@
 import { create } from 'zustand';
+import { InstrumentCategory } from '../types';
 
 interface Filter {
-  category: string;
-  selectedStringNum: number | undefined;
+  category: InstrumentCategory | null;
+  stringNum: number | undefined;
 
-  setCategory: (categ: string) => void;
+  setCategory: (categ: InstrumentCategory | null) => void;
   setStringNum: (stringNum: number) => void;
   clearFilters: () => void;
 }
 
 export const useFilterStore = create<Filter>(set => {
   return {
-    category: 'todas',
-    selectedStringNum: undefined,
+    category: null,
+    stringNum: undefined,
 
     setCategory: categ => set({ category: categ }),
-    setStringNum: stringNum => set({ selectedStringNum: stringNum }),
+    setStringNum: stringNum => set({ stringNum }),
     clearFilters: () => {
-      set({ category: 'todas', selectedStringNum: undefined });
+      set({ category: null, stringNum: undefined });
     },
   };
 });

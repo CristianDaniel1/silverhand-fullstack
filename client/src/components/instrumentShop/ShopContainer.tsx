@@ -1,41 +1,33 @@
-import { ShopList } from './ShopList.tsx';
+import { useInstruments } from '../../hooks/useInstruments.ts';
 import { ShopItem } from './ShopItem.tsx';
-import { instruments } from '../../data.ts';
-import img from '../../assets/cool-guitar.webp';
-import { Search } from './Search.tsx';
-import { useState } from 'react';
-import { Filter } from './Filter.tsx';
-import { useFilterStore } from '../../store/filterStore.ts';
+import { ShopList } from './ShopList.tsx';
 
-let filteredinstruments = [...instruments];
+import img from '../../assets/cool-guitar.webp';
+import { useFilterStore } from '../../store/filterStore.ts';
+import { Filter } from './Filter.tsx';
+import { useState } from 'react';
+import { Search } from './Search.tsx';
+import { ItemSkeleton } from './ItemSkeleton.tsx';
 
 export const ShopContainer = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
+
   const category = useFilterStore(state => state.category);
-  const selectedStringNum = useFilterStore(state => state.selectedStringNum);
+  const stringNum = useFilterStore(state => state.stringNum);
+  const {
+    instruments,
+    fetchNextPage,
+    hasNextPage,
+    isPending,
+    isFetchingNextPage,
+  } = useInstruments({
+    category,
+    stringNum,
+    search: searchTerm,
+  });
 
-  filteredinstruments = instruments;
-
-  if (searchTerm) {
-    filteredinstruments = instruments?.filter(instrument =>
-      instrument.name
-        .toLowerCase()
-        .trim()
-        .includes(searchTerm?.toLowerCase().trim())
-    );
-  }
-
-  if (selectedStringNum) {
-    filteredinstruments = filteredinstruments.filter(
-      instrument => instrument.stringNum === selectedStringNum
-    );
-  }
-
-  if (category !== 'todas') {
-    filteredinstruments = filteredinstruments.filter(
-      instrument => instrument.category === category
-    );
-  }
+  const instrumentsLength = instruments.length;
+  const isFetching = isPending || isFetchingNextPage;
 
   return (
     <>
@@ -56,34 +48,45 @@ export const ShopContainer = () => {
       >
         <div className=" flex flex-col gap-6 flex-wrap lg:flex-row md:justify-between border-b border-b-secundary/10 mb-12 md:pb-8">
           <Search setSearchTerm={setSearchTerm} />
-          <Filter
-            currentStringNum={selectedStringNum}
-            currentCateg={category}
-          />
+          <Filter currentStringNum={stringNum} currentCateg={category} />
+          {searchTerm && (
+            <p className="pb-4 text-balance">
+              Pesquisando por <span className="font-medium">{searchTerm}</span>
+            </p>
+          )}
         </div>
-        {searchTerm && (
-          <p className="pb-4 text-balance">
-            Pesquisando por <span className="font-medium">{searchTerm}</span>
-          </p>
-        )}
         <ShopList>
-          {filteredinstruments.length ? (
-            filteredinstruments.map(instrument => (
-              <ShopItem
-                key={instrument.id}
-                id={instrument.id}
-                price={instrument.price}
-                name={instrument.name}
-                image={instrument.image}
-                stringNum={instrument.stringNum}
-                category={instrument.category}
-                quant={instrument.quant}
-              />
-            ))
-          ) : (
+          {instruments &&
+            instruments.map(instrument => {
+              if (instrument)
+                return (
+                  <ShopItem
+                    key={instrument.id}
+                    id={instrument.id}
+                    price={instrument.price}
+                    name={instrument.name}
+                    image={instrument.image}
+                    stringNum={instrument.stringNum}
+                    category={instrument.category}
+                    quant={instrument.quant}
+                  />
+                );
+            })}
+          {!instrumentsLength && !isPending && (
             <p>0 resultados encontrados na sua busca.</p>
           )}
+          {isFetching &&
+            Array.from({ length: 8 }, (_, i) => <ItemSkeleton key={i} />)}
         </ShopList>
+        {hasNextPage && !isFetching && (
+          <button
+            onClick={() => {
+              void fetchNextPage();
+            }}
+          >
+            FETCH
+          </button>
+        )}
       </section>
     </>
   );

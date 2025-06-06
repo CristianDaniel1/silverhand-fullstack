@@ -6,6 +6,8 @@ import { SignUp } from './pages/SignUp.tsx';
 import { InstrumentShop } from './pages/InstrumentShop.tsx';
 import { InstrumentDetails } from './pages/InstrumentDetails.tsx';
 import { Error } from './pages/Error.tsx';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './libs/tanstackQuery.ts';
 
 const router = createBrowserRouter([
   {
@@ -35,9 +37,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </>
+    </QueryClientProvider>
   );
 }
 

@@ -156,3 +156,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #ac2a2a;
 }
+
+.skeleton {
+  animation: sketeton-loading 0.7s infinite alternate;
+  opacity: 0.7;
+}
+
+@keyframes sketeton-loading {
+  0% {
+    background-color: #cdd7db;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
