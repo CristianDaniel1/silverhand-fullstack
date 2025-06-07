@@ -37,13 +37,11 @@ export class UserController extends ControllerHandleError {
   };
 
   public createUser = async (req: Request, res: Response) => {
-    const instrumentDto = CreateUserDto.create(req.body);
+    const userDto = CreateUserDto.create(req.body);
 
     try {
-      const instrument = await new CreateUser(this.userRepository).execute(
-        instrumentDto
-      );
-      res.status(201).json(instrument);
+      const user = await new CreateUser(this.userRepository).execute(userDto);
+      res.status(201).json(user);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
