@@ -6,6 +6,7 @@ import { RegisterUser } from '../../application/auth/use-cases/register-user';
 import { LoginUserDto } from '../../application/auth/dtos/login-user.dto';
 import { LoginUser } from '../../application/auth/use-cases/login-user';
 import { CookieParserAdapter } from '../../config/cookie-parser.adapter';
+import { UserResponseDto } from '../../application/users/dtos/user-response.dto';
 
 export class AuthController extends ControllerHandleError {
   constructor(private readonly userRepository: UserRepository) {
@@ -44,10 +45,8 @@ export class AuthController extends ControllerHandleError {
 
   public checkAuth = async (req: Request, res: Response) => {
     try {
-      const { user } = req.body;
-      const { id, email, name, role } = user;
-
-      res.status(200).json({ id, email, name, role });
+      const user = UserResponseDto.fromEntity(req.user!);
+      res.status(200).json(user);
     } catch (error: unknown) {
       this.handleError(res, error);
     }

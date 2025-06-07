@@ -5,34 +5,36 @@ import { UserEntity } from '../../domain/entities/user.entity';
 
 export class AuthMiddleWare {
   static async validateJWT(req: Request, res: Response, next: NextFunction) {
-    const authorization = req.header('Authorization');
+    let token = req.cookies['access_token'];
 
-    if (!authorization)
-      return res
-        .status(401)
-        .json({ error: 'Unauthorized - No token provided' });
-
-    if (!authorization.startsWith('Bearer '))
-      return res.status(401).json({ error: 'Unauthorized - Invalid token' });
-
-    const token = authorization.split(' ').at(1) || '';
+    if (!token) {
+      const authorization = req.header('Authorization');
+      if (!authorization || !authorization.startsWith('Bearer ')) {
+        return res
+          .status(401)
+          .json({ error: 'Unauthorized - No token provided' });
+      }
+      token = authorization.split(' ').at(1) || '';
+    }
 
     try {
       const payload = await JwtAdapter.validateToken<{ id: string }>(token);
-
-      if (!payload)
+      if (!payload) {
         return res.status(401).json({ error: 'Unauthorized - Invalid token' });
+      }
 
       const user = await prisma.user.findFirst({
         where: { id: payload.id },
       });
 
-      if (!user) return res.status(401).json({ error: 'Invalid token - user' });
-      req.user = UserEntity.fromObject(user);
+      if (!user) {
+        return res.status(401).json({ error: 'Invalid token - user' });
+      }
 
+      req.user = UserEntity.fromObject(user);
       next();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
