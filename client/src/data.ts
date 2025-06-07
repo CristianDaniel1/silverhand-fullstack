@@ -183,3 +183,10 @@ export const images = [
     alt: 'Quarta imagem do slide',
   },
 ];
+
+export const statusObj = {
+  COMPLETED: 'Completado',
+  PENDING: 'Em Andamento',
+  CANCELED: 'Cancelado',
+  RETURNED: 'Devolvido',
+};

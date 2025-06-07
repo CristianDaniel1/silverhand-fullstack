@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { axiosInstance } from '../libs/axios';
-import { InstrumentCategory, PaginatedInstruments } from '../types';
+import { axiosInstance } from '../../libs/axios';
+import { InstrumentCategory, PaginatedInstruments } from '../../types';
 
 export interface FetchInstrumentsParams {
   page?: number;
@@ -12,7 +12,7 @@ export interface FetchInstrumentsParams {
 
 export const fetchInstruments = async ({
   page = 1,
-  limit = 6,
+  limit = 8,
   category,
   stringNum,
   search,
@@ -35,7 +35,8 @@ export const fetchInstruments = async ({
     return { data: response.data, nextCursor };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data.message);
+      console.log(error.response?.data.error);
+      throw new Error(error.response?.data.error);
     }
   }
 };

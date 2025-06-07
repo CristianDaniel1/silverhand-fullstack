@@ -8,12 +8,15 @@ import { InstrumentDetails } from './pages/InstrumentDetails.tsx';
 import { Error } from './pages/Error.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './libs/tanstackQuery.ts';
+import { Profile } from './pages/Profile.tsx';
+import { createAuthLoader } from './utils/authLoader.ts';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <Error />,
+    hydrateFallbackElement: <div>Carregando...</div>,
     children: [
       {
         index: true,
@@ -30,6 +33,11 @@ const router = createBrowserRouter([
       {
         path: 'cadastro',
         element: <SignUp />,
+      },
+      {
+        path: 'perfil',
+        element: <Profile />,
+        loader: createAuthLoader(),
       },
     ],
   },

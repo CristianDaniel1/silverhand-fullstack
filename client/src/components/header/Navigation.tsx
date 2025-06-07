@@ -1,4 +1,5 @@
 import { useFilterStore } from '../../store/filterStore';
+import { InstrumentCategory } from '../../types';
 
 interface NavigationProps {
   isVisible: boolean;
@@ -16,7 +17,11 @@ export const Navigation = ({
 
   function handleCloseBar(categ: string) {
     clearFilters();
-    setCategory(categ);
+    let categFormatted: InstrumentCategory;
+    if (categ === 'violão') categFormatted = 'VIOLAO';
+    else categFormatted = categ.toUpperCase() as InstrumentCategory;
+
+    setCategory(categFormatted);
     if (isVisible) onCloseBar(false);
   }
 

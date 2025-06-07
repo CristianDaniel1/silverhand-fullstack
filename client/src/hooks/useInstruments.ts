@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import {
   fetchInstruments,
   FetchInstrumentsParams,
-} from '../services/instrumentsFetch';
+} from '../services/instruments/instrumentsFetch';
 
 export const useInstruments = ({
   category,

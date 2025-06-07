@@ -8,6 +8,8 @@ import { Filter } from './Filter.tsx';
 import { useState } from 'react';
 import { Search } from './Search.tsx';
 import { ItemSkeleton } from './ItemSkeleton.tsx';
+import { ErrorMessage } from '../ui/ErrorMessage.tsx';
+import { Button } from '../ui/Button.tsx';
 
 export const ShopContainer = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
@@ -20,6 +22,8 @@ export const ShopContainer = () => {
     hasNextPage,
     isPending,
     isFetchingNextPage,
+    isError,
+    error,
   } = useInstruments({
     category,
     stringNum,
@@ -46,18 +50,24 @@ export const ShopContainer = () => {
         id="shop"
         className="max-container padding-y padding-x min-h-[80vh]"
       >
-        <div className=" flex flex-col gap-6 flex-wrap lg:flex-row md:justify-between border-b border-b-secundary/10 mb-12 md:pb-8">
+        <div className="flex flex-col gap-6 flex-wrap lg:flex-row md:justify-between border-b border-b-secundary/10 mb-12 md:pb-8">
           <Search setSearchTerm={setSearchTerm} />
           <Filter currentStringNum={stringNum} currentCateg={category} />
-          {searchTerm && (
-            <p className="pb-4 text-balance">
-              Pesquisando por <span className="font-medium">{searchTerm}</span>
-            </p>
-          )}
         </div>
-        <ShopList>
-          {instruments &&
-            instruments.map(instrument => {
+        {searchTerm && (
+          <p className="pb-4 text-balance">
+            Pesquisando por <span className="font-medium">{searchTerm}</span>
+          </p>
+        )}
+        {!isFetching && !isError && !instrumentsLength && (
+          <p className="text-xl pb-6">
+            Sem resultados encontrados na sua busca.
+          </p>
+        )}
+
+        {instruments && (
+          <ShopList>
+            {instruments.map(instrument => {
               if (instrument)
                 return (
                   <ShopItem
@@ -72,20 +82,27 @@ export const ShopContainer = () => {
                   />
                 );
             })}
-          {!instrumentsLength && !isPending && (
-            <p>0 resultados encontrados na sua busca.</p>
-          )}
-          {isFetching &&
-            Array.from({ length: 8 }, (_, i) => <ItemSkeleton key={i} />)}
-        </ShopList>
-        {hasNextPage && !isFetching && (
-          <button
+            {isFetching &&
+              Array.from({ length: 8 }, (_, i) => <ItemSkeleton key={i} />)}
+          </ShopList>
+        )}
+        {isError && (
+          <ErrorMessage
+            title="Erro ao carregar instrumentos"
+            message={
+              error?.message || 'Ocorreu um erro inesperado, volte mais tarde.'
+            }
+          />
+        )}
+        {hasNextPage && !isFetching && !isError && (
+          <Button
+            className="mx-auto block"
             onClick={() => {
               void fetchNextPage();
             }}
           >
-            FETCH
-          </button>
+            Carregar mais instrumentos
+          </Button>
         )}
       </section>
     </>
