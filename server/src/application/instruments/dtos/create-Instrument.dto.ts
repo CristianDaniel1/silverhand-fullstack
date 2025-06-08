@@ -16,7 +16,7 @@ export class CreateInstrumentDto {
       props.price,
       props.stringNum,
       props.quant,
-      props.category as Category,
+      props.category.toUpperCase() as Category,
       props.image
     );
   }

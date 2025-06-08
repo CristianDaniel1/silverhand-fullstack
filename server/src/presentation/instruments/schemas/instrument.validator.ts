@@ -27,7 +27,7 @@ export const InstrumentSchema = z.object({
       .int()
       .nonnegative(),
     image: z.string().optional(),
-    category: z.enum(['GUITARRA', 'CONTRABAIXO', 'VIOLAO'], {
+    category: z.enum(['guitarra', 'contrabaixo', 'violao'], {
       required_error: 'Category is required',
       invalid_type_error: 'Category must be of type enum category',
     }),

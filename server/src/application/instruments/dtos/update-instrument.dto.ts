@@ -35,7 +35,7 @@ export class UpdateInstrumentDto {
       price,
       stringNum,
       quant,
-      category as Category,
+      category?.toUpperCase() as Category,
       image
     );
   }
