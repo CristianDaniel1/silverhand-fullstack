@@ -65,7 +65,7 @@ export const ShopContainer = () => {
           </p>
         )}
 
-        {instruments && (
+        {instrumentsLength > 0 && (
           <ShopList>
             {instruments.map(instrument => {
               if (instrument)
@@ -82,13 +82,19 @@ export const ShopContainer = () => {
                   />
                 );
             })}
-            {isFetching &&
-              Array.from({ length: 8 }, (_, i) => <ItemSkeleton key={i} />)}
+          </ShopList>
+        )}
+        {isFetching && (
+          <ShopList>
+            {Array.from({ length: 8 }, (_, i) => (
+              <ItemSkeleton key={i} />
+            ))}
           </ShopList>
         )}
         {isError && (
           <ErrorMessage
             title="Erro ao carregar instrumentos"
+            className="justify-center"
             message={
               error?.message || 'Ocorreu um erro inesperado, volte mais tarde.'
             }

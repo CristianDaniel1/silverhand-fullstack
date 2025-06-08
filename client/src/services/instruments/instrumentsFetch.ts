@@ -10,13 +10,18 @@ export interface FetchInstrumentsParams {
   search: string | undefined;
 }
 
+interface FetchInstruments extends FetchInstrumentsParams {
+  signal: AbortSignal;
+}
+
 export const fetchInstruments = async ({
   page = 1,
   limit = 8,
   category,
   stringNum,
   search,
-}: FetchInstrumentsParams) => {
+  signal,
+}: FetchInstruments) => {
   let filterByCateg = '';
   if (category) filterByCateg += category.toUpperCase();
   let url = `instruments?page=${page}&limit=${limit}`;
@@ -27,7 +32,7 @@ export const fetchInstruments = async ({
 
   try {
     const response: AxiosResponse<PaginatedInstruments> =
-      await axiosInstance.get(url);
+      await axiosInstance.get(url, { signal });
 
     const { page: currentPage, lastPage } = response.data;
 

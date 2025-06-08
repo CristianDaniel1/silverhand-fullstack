@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { UserAuth } from '../../types';
 import { Input } from '../ui/Input.tsx';
-import { Button } from '../ui/Button.tsx';
+import { PencilIcon } from '../icons/PencilIcon.tsx';
 
 interface ProfileInfoProps {
   userInfo: UserAuth;
@@ -17,10 +17,15 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
   return (
     <>
       <div className="flex justify-between">
-        <h2>Seus dados</h2>
-        <Button onClick={handleClickEdit} bgColor={isEditing} className="px-8">
-          {isEditing ? 'Editando...' : 'Editar'}
-        </Button>
+        <h2 className="text-xl font-merry pb-6">Seus dados</h2>
+        {!isEditing && (
+          <button
+            onClick={handleClickEdit}
+            className="flex items-center justify-center gap-2 px-5 py-2 border border-secundary/60 font-medium text-secundary/60 hover:border-black hover:text-black"
+          >
+            <PencilIcon /> Editar
+          </button>
+        )}
       </div>
       <form>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { statusObj } from '../../data';
+import { statusObj } from '../../data.ts';
 import { Order as OrderType } from '../../types';
-import { currencyFormatter, dateFormatter } from '../../utils/formatting';
-import { OrderItem } from './OrderItem';
+import { currencyFormatter, dateFormatter } from '../../utils/formatting.ts';
+import { OrderItem } from './OrderItem.tsx';
 
 export const Order = (order: OrderType) => {
   const [isCheckingItems, setIsCheckingItems] = useState(false);

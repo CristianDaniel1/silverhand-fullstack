@@ -19,8 +19,14 @@ export const useInstruments = ({
     data,
   } = useInfiniteQuery({
     queryKey: ['instruments', category, stringNum, search],
-    queryFn: ({ pageParam = 1 }) =>
-      fetchInstruments({ category, stringNum, search, page: pageParam }),
+    queryFn: ({ pageParam = 1, signal }) =>
+      fetchInstruments({
+        category,
+        stringNum,
+        search,
+        page: pageParam,
+        signal,
+      }),
     initialPageParam: 1,
     staleTime: 1000 * 60 * 60,
     getNextPageParam: lastPage =>

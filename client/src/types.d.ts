@@ -94,3 +94,7 @@ export interface Order {
 }
 
 export type OrdersResponse = Order[];
+
+export interface SignalType {
+  signal: AbortSignal;
+}
