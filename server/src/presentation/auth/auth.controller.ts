@@ -51,4 +51,15 @@ export class AuthController extends ControllerHandleError {
       this.handleError(res, error);
     }
   };
+
+  public logout = async (req: Request, res: Response) => {
+    try {
+      res
+        .clearCookie('access_token')
+        .status(200)
+        .json({ message: 'Deslogado com sucesso.' });
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
+  };
 }

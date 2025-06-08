@@ -16,6 +16,8 @@ export class AuthRoutes {
     const controller = new AuthController(userRepository);
 
     router.post('/login', [validateData(LoginSchema)], controller.loginUser);
+    router.post('/logout', [AuthMiddleWare.validateJWT], controller.logout);
+
     router.post(
       '/register',
       [validateData(RegisterUserSchema)],

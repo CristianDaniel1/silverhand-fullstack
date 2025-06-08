@@ -47,9 +47,7 @@ export class UserDatasourceImpl implements UserDatasource {
     });
 
     if (!userEmail) {
-      throw CustomError.badRequest(
-        'Dado(s) fornecido(s) esta(ão) incorreto(s)'
-      );
+      throw CustomError.badRequest('E-mail ou senha incorretos');
     }
 
     return UserEntity.fromObject(userEmail);

@@ -15,17 +15,13 @@ export class LoginUser implements LoginUserUseCase {
   async execute(dto: LoginUserDto): Promise<any> {
     const user = await this.repository.findByEmail(dto.email);
 
-    if (!user)
-      throw CustomError.badRequest(
-        'Dado(s) fornecido(s) esta(ão) incorreto(s)'
-      );
+    if (!user) throw CustomError.badRequest('E-mail ou senha incorretos');
 
     const isMatching = await BcryptAdapter.compareAsync(
       dto.password,
       user.password
     );
-    if (!isMatching)
-      throw CustomError.badRequest('Usuário ou senha incorretos');
+    if (!isMatching) throw CustomError.badRequest('E-mail ou senha incorretos');
 
     const token = await JwtAdapter.generateToken({ id: user.id });
     if (!token) throw CustomError.internalServer('Error while creating JWT');
