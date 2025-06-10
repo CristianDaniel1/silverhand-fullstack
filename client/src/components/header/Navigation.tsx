@@ -1,4 +1,4 @@
-import { useFilterStore } from '../../store/filterStore';
+import { useFilterStore } from '../../store/filterStore.ts';
 import { InstrumentCategory } from '../../types';
 
 interface NavigationProps {
@@ -18,15 +18,15 @@ export const Navigation = ({
   function handleCloseBar(categ: string) {
     clearFilters();
     let categFormatted: InstrumentCategory;
-    if (categ === 'violão') categFormatted = 'VIOLAO';
-    else categFormatted = categ.toUpperCase() as InstrumentCategory;
+    if (categ === 'violão') categFormatted = 'violao';
+    else categFormatted = categ as InstrumentCategory;
 
     setCategory(categFormatted);
     if (isVisible) onCloseBar(false);
   }
 
   return (
-    <nav className="flex justify-self-center tracking-wider text-sm z-40 text-white">
+    <nav className="flex justify-self-center tracking-wider text-sm z-50 lg:z-30 text-white">
       {isVisible && (
         <div
           className={`${

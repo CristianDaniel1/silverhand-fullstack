@@ -1,4 +1,4 @@
-import { useMyOrders } from '../../hooks/useMyOrders.ts';
+import { useMyOrders } from '../../hooks/queries/useMyOrders.ts';
 import { ErrorMessage } from '../ui/ErrorMessage.tsx';
 import { Spinner } from '../ui/Spinner.tsx';
 import { Order } from './Order.tsx';
@@ -23,12 +23,15 @@ export const MyOrders = ({ userId }: MyOrdersProps) => {
           <Spinner className="size-12 text-primary" />
         </div>
       )}
-      {orders && (
+      {orders && orders.length > 0 && (
         <ul className="grid grid-cols-1 gap-5">
           {orders.map(order => (
             <Order key={order.id} {...order} />
           ))}
         </ul>
+      )}
+      {orders && !orders.length && (
+        <p className="pt-2">Sem pedidos até o momento.</p>
       )}
       {isError && (
         <ErrorMessage

@@ -1,18 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../libs/axios';
-import { OrdersResponse, SignalType } from '../../types';
+import { OrdersResponse } from '../../types';
 
-export const myOrdersFetch = async ({ signal }: SignalType) => {
+export const myOrdersFetch = async () => {
   try {
     const response: AxiosResponse<OrdersResponse> = await axiosInstance.get(
-      'orders/user',
-      { signal }
+      'orders/user'
     );
     const data = response.data;
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data.error);
       throw new Error(error.response?.data.error);
     }
   }

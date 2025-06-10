@@ -1,13 +1,3 @@
-export type Instrument = {
-  id: string;
-  name: string;
-  price: number;
-  stringNum: number;
-  quant: number;
-  image: string;
-  category: 'guitarra' | 'contrabaixo' | 'violão';
-};
-
 export type InstrumentPreview = {
   id: string;
   name: string;
@@ -19,7 +9,7 @@ export type CartItems = {
   quantInCart: number;
 } & Instrument;
 
-export type InstrumentCategory = 'CONTRABAIXO' | 'GUITARRA' | 'VIOLAO';
+export type InstrumentCategory = 'contrabaixo' | 'guitarra' | 'violao';
 
 export interface Instrument {
   id: number;
@@ -98,3 +88,14 @@ export type OrdersResponse = Order[];
 export interface SignalType {
   signal: AbortSignal;
 }
+
+export type UserRegister = {
+  name: string;
+  email: string;
+  cpf: string;
+  zipCode: number;
+  address: string;
+  role?: Role | 'USER_ROLE' | 'ADMIN_ROLE';
+  phoneNumber?: string;
+  profilePic?: string;
+};

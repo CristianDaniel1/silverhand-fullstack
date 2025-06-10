@@ -72,6 +72,52 @@
   .custom-scroll::-webkit-scrollbar-thumb {
     @apply rounded-[2rem] bg-secundary/40;
   }
+
+  .is-valid {
+    @apply border-b border-green-400;
+  }
+
+  .is-invalid {
+    @apply border-b border-transparent outline-2 outline outline-red-400 focus:outline-red-400;
+  }
+}
+
+/* input:not(:placeholder-shown):valid {
+  outline: #4ade80 solid;
+  border-bottom: transparent;
+}
+
+input:not(:placeholder-shown):invalid {
+  outline: #f87171 solid;
+  border-bottom: transparent;
+}
+
+input:focus:not(:placeholder-shown):invalid {
+  outline: #ffb27e solid;
+  border-bottom: transparent;
+} */
+
+.menu-list {
+  transition-behavior: allow-discrete;
+}
+
+.menu > .menu-list {
+  display: none;
+  opacity: 0;
+}
+
+.menu:focus-within > .menu-list,
+.menu:hover > .menu-list {
+  display: grid;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.menu:focus-within > button {
+  color: #ac2a2a;
 }
 
 .cart {
@@ -163,7 +209,7 @@
 }
 
 .skeleton {
-  animation: sketeton-loading 0.5s infinite alternate;
+  animation: sketeton-loading 0.5s 0.3s infinite alternate;
   opacity: 0.7;
 }
 

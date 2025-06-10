@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore.ts';
-import { currencyFormatter } from '../../utils/formatting.ts';
+import { currencyFormatter } from '../share/utils/formatting.ts';
 import { CloseIcon } from '../icons/CloseIcon.tsx';
 import { TrashIcon } from '../icons/TrashIcon.tsx';
 import { Button } from '../ui/Button.tsx';
-import { CartItem } from './CartItem.tsx';
+// import { CartItem } from './CartItem.tsx';
 import { CartList } from './CartList.tsx';
 import { Message } from '../ui/Message.tsx';
 
@@ -65,7 +65,7 @@ export const Cart = () => {
             <CloseIcon />
           </button>
         </div>
-        {cartItems.length > 0 ? (
+        {/* {cartItems.length > 0 ? (
           <>
             <CartList>
               {cartItems.map(item => (
@@ -97,7 +97,7 @@ export const Cart = () => {
           <div className="flex flex-col py-10 padding-x text-center text-secundary">
             <h3 className="font-merry text-2xl py-6">O carrinho está vazio!</h3>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

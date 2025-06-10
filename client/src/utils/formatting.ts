@@ -8,3 +8,12 @@ export const dateFormatter = (date: string | Date) =>
 
 export const partialDateFormatter = (date: string | Date) =>
   new Date(date).toLocaleDateString();
+
+export const dateStringFormatter = (date: string | Date) => {
+  const locale = navigator.language;
+  return new Date(date).toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+};

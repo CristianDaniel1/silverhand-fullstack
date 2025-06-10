@@ -1,4 +1,4 @@
-import { useInstruments } from '../../hooks/useInstruments.ts';
+import { useInstruments } from '../../hooks/queries/useInstruments.ts';
 import { ShopItem } from './ShopItem.tsx';
 import { ShopList } from './ShopList.tsx';
 

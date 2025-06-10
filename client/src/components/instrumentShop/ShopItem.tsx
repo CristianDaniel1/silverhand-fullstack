@@ -4,19 +4,21 @@ import { type Instrument } from '../../types';
 import { CartIcon } from '../icons/CartIcon.tsx';
 import { Button } from '../ui/Button.tsx';
 import { currencyFormatter } from '../../utils/formatting.ts';
-import { useCartStore } from '../../store/cartStore.ts';
+import { slugify } from '../../utils/stringFormatters.ts';
+import { useAddToCart } from '../../hooks/mutations/useAddToCart.ts';
+import { Spinner } from '../ui/Spinner.tsx';
 
-export const ShopItem = ({ id, name, price, image, ...props }: Instrument) => {
-  const addToCart = useCartStore(state => state.addToCart);
+export const ShopItem = ({ id, name, price, image }: Instrument) => {
+  const { mutate, isPending } = useAddToCart();
 
   function handleAddToCart() {
-    addToCart({ id, image, name, price, ...props });
+    mutate({ instrumentId: id });
   }
 
   return (
     <li className="overflow-clip border border-secundary/10 rounded relative pb-12">
       <Link
-        to={`/instrumentos-de-cordas/${name}`}
+        to={`/instrumentos-de-cordas/${slugify(`${name}-${id}`)}`}
         className="h-full flex flex-col instrument"
       >
         <div className="overflow-clip aspect-square">
@@ -42,9 +44,10 @@ export const ShopItem = ({ id, name, price, image, ...props }: Instrument) => {
       <Button
         className="absolute left-3 right-3 bottom-4 flex items-center justify-center gap-2 text-sm xs:text-base"
         onClick={handleAddToCart}
+        disabled={isPending}
       >
         <div className="inline-block">
-          <CartIcon />
+          {isPending ? <Spinner className="size-4" /> : <CartIcon />}
         </div>
         Adicionar
       </Button>

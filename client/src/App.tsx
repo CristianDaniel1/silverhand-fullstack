@@ -9,14 +9,17 @@ import { Error } from './pages/Error.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './libs/tanstackQuery.ts';
 import { Profile } from './pages/Profile.tsx';
-import { createAuthLoader } from './utils/authLoader.ts';
+import { createAuthLoader, loggedLoader } from './utils/loaders/authLoader.ts';
+import { FallbackElement } from './pages/FallbackElement.tsx';
+import { Toaster } from 'sonner';
+import { instrumentLoader } from './utils/loaders/instrumentLoader.ts';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <Error />,
-    hydrateFallbackElement: <div>Carregando...</div>,
+    hydrateFallbackElement: <FallbackElement />,
     children: [
       {
         index: true,
@@ -25,14 +28,17 @@ const router = createBrowserRouter([
       {
         path: 'instrumentos-de-cordas/:instrumentId',
         element: <InstrumentDetails />,
+        loader: instrumentLoader,
       },
       {
         path: 'login',
         element: <Login />,
+        loader: loggedLoader,
       },
       {
         path: 'cadastro',
         element: <SignUp />,
+        loader: loggedLoader,
       },
       {
         path: 'perfil',
@@ -46,6 +52,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster position="top-center" richColors />
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

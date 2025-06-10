@@ -1,13 +1,13 @@
 import { Footer } from '../components/Footer.tsx';
-import { BasicHeader } from '../components/header/BasicHeader.tsx';
 
 import silverhand from '../assets/Johnny-Silverhand-playing-guitar.webp';
 import { Link } from 'react-router';
+import { Header } from '../components/header/Header.tsx';
 
 export const Error = () => {
   return (
     <>
-      <BasicHeader />
+      <Header />
       <main className="padding-y padding-x overflow-clip max-container min-h-screen">
         <h2 className="text-center text-3xl sm:text-4xl font-semibold py-14">
           <span>Erro 404</span>

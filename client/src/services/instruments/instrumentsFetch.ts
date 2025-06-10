@@ -6,8 +6,8 @@ export interface FetchInstrumentsParams {
   page?: number;
   limit?: number;
   category: InstrumentCategory | null;
-  stringNum: number | undefined;
-  search: string | undefined;
+  stringNum?: number | undefined;
+  search?: string | undefined;
 }
 
 interface FetchInstruments extends FetchInstrumentsParams {
@@ -22,11 +22,9 @@ export const fetchInstruments = async ({
   search,
   signal,
 }: FetchInstruments) => {
-  let filterByCateg = '';
-  if (category) filterByCateg += category.toUpperCase();
   let url = `instruments?page=${page}&limit=${limit}`;
 
-  if (filterByCateg) url += `&category=${category}`;
+  if (category) url += `&category=${category}`;
   if (stringNum) url += `&stringNum=${stringNum}`;
   if (search) url += `&search=${search}`;
 
@@ -40,7 +38,6 @@ export const fetchInstruments = async ({
     return { data: response.data, nextCursor };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data.error);
       throw new Error(error.response?.data.error);
     }
   }

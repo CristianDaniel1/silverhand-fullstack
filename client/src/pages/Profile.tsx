@@ -1,18 +1,17 @@
-import { BasicHeader } from '../components/header/BasicHeader.tsx';
 import profileBackgroundImg from '../assets/guitar-img-2.webp';
 import profileIcon from '../assets/profile.jpg';
-import { useAuthStore } from '../store/authStore.ts';
 import { ProfileInfo } from '../components/profile/profileInfo.tsx';
 import { firstNameFormat } from '../utils/stringFormatters.ts';
 import { EmailIcon } from '../components/icons/EmailIcon.tsx';
 import { useState } from 'react';
 import { MyOrders } from '../components/orders/myOrders.tsx';
 import { partialDateFormatter } from '../utils/formatting.ts';
+import { useAuth } from '../hooks/queries/useAuth.ts';
 
 type TabProfile = 'My Orders' | 'Profile Details';
 
 export const Profile = () => {
-  const authUser = useAuthStore(state => state.authUser);
+  const { userAuth } = useAuth();
   const [currentTab, setCurrentTab] = useState<TabProfile>('My Orders');
 
   function handleClickTab(tab: TabProfile) {
@@ -22,9 +21,8 @@ export const Profile = () => {
   const isTabInMyOrders = currentTab === 'My Orders';
   const isTabInDetails = currentTab === 'Profile Details';
 
-  return (
-    <>
-      <BasicHeader />
+  if (userAuth) {
+    return (
       <main className="relative overflow-x-clip lg:pt-12 min-h-screen">
         <section className="padding-y max-container w-full">
           <div className="md:padding-x flex items-center justify-center sm:py-6">
@@ -47,20 +45,20 @@ export const Profile = () => {
                 <div className="relative flex-1">
                   <div>
                     <h2 className="text-3xl sm:text-4xl font-merry flex-1 text-center sm:text-left pb-6 sm:pb-4 overflow-hidden">
-                      Olá, {firstNameFormat(authUser!.name)}
+                      Olá, {firstNameFormat(userAuth!.name)}
                     </h2>
                     <div className="flex gap-2 text-secundary/70 items-center font-medium">
                       <EmailIcon />
                       e-mail:{' '}
                       <span className="text-primary font-medium">
-                        {authUser!.email}
+                        {userAuth!.email}
                       </span>
                     </div>
                   </div>
                   <div className="hidden absolute top-0 right-0 sm:grid grid-cols-1 pt-2 sm:pt-0 sm:justify-items-end">
                     <p className="text-sm">Criado em:</p>
                     <div className="font-medium ">
-                      {partialDateFormatter(authUser!.createdAt)}
+                      {partialDateFormatter(userAuth!.createdAt)}
                     </div>
                   </div>
                 </div>
@@ -87,12 +85,12 @@ export const Profile = () => {
                   Detalhes do Perfil
                 </button>
               </div>
-              {isTabInDetails && <ProfileInfo userInfo={authUser!} />}
-              {isTabInMyOrders && <MyOrders userId={authUser!.id} />}
+              {isTabInDetails && <ProfileInfo userInfo={userAuth!} />}
+              {isTabInMyOrders && <MyOrders userId={userAuth!.id} />}
             </div>
           </div>
         </section>
       </main>
-    </>
-  );
+    );
+  }
 };

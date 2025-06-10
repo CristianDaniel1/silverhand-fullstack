@@ -21,8 +21,8 @@ export const Filter = ({ currentCateg, currentStringNum }: FilterProps) => {
       setCategory(null);
       return;
     }
-    if (categ === 'violão') categFormatted = 'VIOLAO';
-    else categFormatted = categ.toUpperCase() as InstrumentCategory;
+    if (categ === 'violão') categFormatted = 'violao';
+    else categFormatted = categ as InstrumentCategory;
 
     setCategory(categFormatted);
   }
@@ -63,7 +63,7 @@ export const Filter = ({ currentCateg, currentStringNum }: FilterProps) => {
               onClick={() => handleCategoryClick(categ)}
               className={`hover:text-primary duration-200 tracking-wide capitalize
            ${
-             categoriesObj[currentCateg || 'TODAS'] === categ
+             categoriesObj[currentCateg || 'todas'] === categ
                ? 'text-primary'
                : 'text-secundary'
            }`}
