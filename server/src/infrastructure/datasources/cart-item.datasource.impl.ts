@@ -35,6 +35,9 @@ export class CartItemDatasourceImpl implements CartItemDatasource {
   ): Promise<CartItemEntity> {
     const item = await prisma.cartItem.create({
       data: { cartId, ...createCartItemDto },
+      include: {
+        instrument: true,
+      },
     });
 
     return CartItemEntity.fromObject(item);
@@ -46,6 +49,9 @@ export class CartItemDatasourceImpl implements CartItemDatasource {
     const updatedItem = await prisma.cartItem.update({
       where: { id: updateCartItemDto.id },
       data: { quantity: updateCartItemDto.quantity },
+      include: {
+        instrument: true,
+      },
     });
 
     return CartItemEntity.fromObject(updatedItem);
@@ -54,6 +60,9 @@ export class CartItemDatasourceImpl implements CartItemDatasource {
   async deleteById(id: number): Promise<CartItemEntity> {
     const deletedItem = await prisma.cartItem.delete({
       where: { id },
+      include: {
+        instrument: true,
+      },
     });
 
     return CartItemEntity.fromObject(deletedItem);

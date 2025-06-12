@@ -23,11 +23,11 @@ export class CartController extends ControllerHandleError {
     const dto = CreateCartItemDto.create(req.body);
 
     try {
-      await new AddToCart(this.cartRepository, this.cartItemRepository).execute(
-        dto,
-        loggedUser!.id
-      );
-      res.status(201).json({ message: 'Cart Item Added' });
+      const cartItem = await new AddToCart(
+        this.cartRepository,
+        this.cartItemRepository
+      ).execute(dto, loggedUser!.id);
+      res.status(201).json(cartItem);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
@@ -51,8 +51,10 @@ export class CartController extends ControllerHandleError {
     const dto = UpdateCartItemDto.create({ ...req.body, id });
 
     try {
-      await new UpdateCartItem(this.cartItemRepository).execute(dto);
-      res.json({ message: 'Item atualizado com sucesso' });
+      const updatedItem = await new UpdateCartItem(
+        this.cartItemRepository
+      ).execute(dto);
+      res.json(updatedItem);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
@@ -62,8 +64,10 @@ export class CartController extends ControllerHandleError {
     const id = +req.params.id;
 
     try {
-      await new DeleteCartItem(this.cartItemRepository).execute(id);
-      res.json({ message: 'Item deletado com sucesso' });
+      const deletedItem = await new DeleteCartItem(
+        this.cartItemRepository
+      ).execute(id);
+      res.json(deletedItem);
     } catch (error: unknown) {
       this.handleError(res, error);
     }
@@ -74,7 +78,7 @@ export class CartController extends ControllerHandleError {
 
     try {
       await new DeleteCart(this.cartRepository).execute(loggedUser!.id);
-      res.json({ message: 'Item deletado com sucesso' });
+      res.json({ message: 'Carrinho deletado com sucesso' });
     } catch (error: unknown) {
       this.handleError(res, error);
     }

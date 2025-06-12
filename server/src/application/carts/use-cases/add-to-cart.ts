@@ -1,9 +1,10 @@
+import { CartItemEntity } from '../../../domain/entities/cart-item.entity';
 import { CartItemRepository } from '../../../domain/repositories/cart-item.repository';
 import { CartRepository } from '../../../domain/repositories/cart.repository';
 import { CreateCartItemDto } from '../dtos/create-cart-item.dto';
 
 export interface AddToCartUseCase {
-  execute(dto: CreateCartItemDto, userId: string): Promise<void>;
+  execute(dto: CreateCartItemDto, userId: string): Promise<CartItemEntity>;
 }
 
 export class AddToCart implements AddToCartUseCase {
@@ -15,7 +16,7 @@ export class AddToCart implements AddToCartUseCase {
   private async addOrUpdateItem(
     cartId: number,
     dto: CreateCartItemDto
-  ): Promise<void> {
+  ): Promise<CartItemEntity> {
     const existingItem =
       await this.cartItemRepository.findByCartIdAndInstrumentId(
         cartId,
@@ -23,12 +24,12 @@ export class AddToCart implements AddToCartUseCase {
       );
 
     if (existingItem) {
-      await this.cartItemRepository.updateById({
+      return this.cartItemRepository.updateById({
         id: existingItem.id,
         quantity: existingItem.quantity + (dto.quantity || 1),
       });
     } else {
-      await this.cartItemRepository.create(
+      return this.cartItemRepository.create(
         {
           instrumentId: dto.instrumentId,
           quantity: dto.quantity,
@@ -38,7 +39,10 @@ export class AddToCart implements AddToCartUseCase {
     }
   }
 
-  async execute(dto: CreateCartItemDto, userId: string): Promise<void> {
+  async execute(
+    dto: CreateCartItemDto,
+    userId: string
+  ): Promise<CartItemEntity> {
     let cart = await this.cartRepository.findByUserId(userId);
 
     if (!cart) {
@@ -48,6 +52,6 @@ export class AddToCart implements AddToCartUseCase {
       });
     }
 
-    await this.addOrUpdateItem(cart.id, dto);
+    return this.addOrUpdateItem(cart.id, dto);
   }
 }
