@@ -30,7 +30,7 @@ export const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" px-8 md:px-14 py-8 lg:py-16 xl:w-[40rem] mx-auto rounded-md animate-[slide-up_0.5s_ease-in-out_backwards]"
+      className=" px-8 md:px-14 py-8 lg:py-16 xl:w-[40rem] mx-auto rounded-md animate-[slide-up_0.5s_ease-in-out_backwards] h-full"
     >
       <h2 className="text-4xl pb-6 font-merry text-center">
         Bem-vindo(a) de volta!

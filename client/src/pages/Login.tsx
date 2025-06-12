@@ -5,11 +5,11 @@ export const Login = () => {
   return (
     <main className="relative overflow-x-clip lg:pt-12">
       <section className="padding-y grid grid-cols-1 lg:grid-cols-2 max-container">
-        <div className="h-full w-full overflow-clip aspect-video rounded-lg hidden lg:flex">
+        <div className="w-full h-[46rem] bg-slate-50 overflow-clip aspect-video rounded-lg hidden lg:flex">
           <img
             src={loginImg}
-            alt="taças de vinho em cima de uma mesa"
-            className="object-cover w-full h-full brightness-75 aspect-video animate-opacity"
+            alt="Guitarrista emocionado"
+            className="object-cover w-full aspect-video brightness-75 animate-opacity"
           />
         </div>
         <div className="max-container md:padding-x flex items-center py-6">
