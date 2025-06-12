@@ -1,13 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../libs/axios';
-import { CartResponse } from '../../types';
 import { CustomError } from '../../utils/CustomError';
 
-export const fetchCart = async () => {
+export const deleteCart = async () => {
   try {
-    const response: AxiosResponse<CartResponse> = await axiosInstance.get(
-      'cart'
-    );
+    const response: AxiosResponse = await axiosInstance.delete('cart');
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -14,7 +14,7 @@ export const InstrumentShop = () => {
             Silver<span className="text-primary">Hand</span> Style
           </h2>
           <div className="grid grid-cols-3 gap-2 md:gap-3 lg:gap-6 lg:pt-6">
-            <div className="overflow-clip aspect-square">
+            <div className="overflow-clip aspect-square relative">
               <a href="#shop">
                 <img
                   src={samuraiGuitar}
@@ -24,9 +24,15 @@ export const InstrumentShop = () => {
                   height={395}
                   className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
                 />
+                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                  <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
+                    S
+                  </span>
+                  mokin'
+                </div>
               </a>
             </div>
-            <div className="overflow-clip aspect-square">
+            <div className="overflow-clip aspect-square relative">
               <a href="#shop">
                 <img
                   src={guitarView}
@@ -34,9 +40,15 @@ export const InstrumentShop = () => {
                   alt="Guitarra de ilustração"
                   className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
                 />
+                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                  <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
+                    S
+                  </span>
+                  ilver
+                </div>
               </a>
             </div>
-            <div className="overflow-clip aspect-square">
+            <div className="overflow-clip aspect-square relative">
               <a href="#shop">
                 <img
                   src={guitarView2}
@@ -44,6 +56,12 @@ export const InstrumentShop = () => {
                   alt="Guitarra de ilustração"
                   className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
                 />
+                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                  <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
+                    S
+                  </span>
+                  tyle
+                </div>
               </a>
             </div>
           </div>

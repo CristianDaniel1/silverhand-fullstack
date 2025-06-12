@@ -27,7 +27,7 @@ export const ImageSlider = () => {
           alt={image.alt}
           width={616}
           height={616}
-          className="object-cover h-full flex-shrink-0 flex-grow-0 w-full duration-500 ease-in-out"
+          className="object-cover h-full flex-shrink-0 flex-grow-0 w-full duration-500 ease-in-out z-[-1]"
           style={{ translate: `${-100 * imageIndex}%` }}
         />
       ))}
@@ -46,6 +46,19 @@ export const ImageSlider = () => {
         >
           <CaretRightIcon />
         </button>
+      </div>
+      <div className="grid top-0 left-0 right-0 bottom-0 items-end h-full max-container w-full absolute font-merry z-[-1] padding-x ">
+        <div className="max-container w-full padding-y">
+          <div className="text-slate-100 font-medium text-2xl sm:text-4xl flex justify-end pb-2 animate-[opacity_0.5s_ease-in-out_backwards]">
+            Hand's On
+          </div>
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-light flex justify-end text-white pb-4 sm:pb-0 animate-[opacity_0.5s_0.3s_ease-in-out_backwards]">
+            <div>
+              Silver
+              <span className="text-primary">Hand</span>
+            </div>
+          </h1>
+        </div>
       </div>
     </div>
   );

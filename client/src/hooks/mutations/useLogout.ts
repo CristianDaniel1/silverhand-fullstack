@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { queryClient } from '../../libs/tanstackQuery';
 import { postLogout } from '../../services/auth/logout.ts';
 import { toast } from 'sonner';
+import { deleteCartCache } from '../../utils/cache/deleteCartCache.ts';
 
 export const useLogout = () => {
   const navigate = useNavigate();
@@ -10,10 +11,17 @@ export const useLogout = () => {
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: postLogout,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ['userAuth'],
-        refetchType: 'none',
-      });
+      deleteCartCache();
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['userAuth'],
+          refetchType: 'none',
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['cart'],
+        }),
+      ]);
+
       navigate('/login');
     },
     onError: () => {

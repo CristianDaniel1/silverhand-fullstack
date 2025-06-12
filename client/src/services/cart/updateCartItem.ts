@@ -1,15 +1,19 @@
 import axios, { AxiosResponse } from 'axios';
-import { axiosInstance } from '../../libs/axios';
 import { CustomError } from '../../utils/CustomError';
+import { axiosInstance } from '../../libs/axios';
 import { CartItem } from '../../types';
 
-export const addToCart = async ({ instrumentId }: { instrumentId: number }) => {
+export const updateCartItem = async ({
+  id,
+  quantity,
+}: {
+  id: number;
+  quantity: number;
+}) => {
   try {
-    const response: AxiosResponse<CartItem> = await axiosInstance.post(
-      'cart/items',
-      {
-        instrumentId,
-      }
+    const response: AxiosResponse<CartItem> = await axiosInstance.put(
+      `cart/items/${id}`,
+      { quantity }
     );
 
     return response.data;

@@ -5,10 +5,6 @@ export type InstrumentPreview = {
   image: string;
 };
 
-export type CartItems = {
-  quantInCart: number;
-} & Instrument;
-
 export type InstrumentCategory = 'contrabaixo' | 'guitarra' | 'violao';
 
 export interface Instrument {
@@ -99,3 +95,31 @@ export type UserRegister = {
   phoneNumber?: string;
   profilePic?: string;
 };
+
+export interface CartItem {
+  id: number;
+  cartId: number;
+  quantity: number;
+  instrumentId: number;
+  instrument: Instrument;
+}
+
+export interface ShoppingCart {
+  id: number;
+  userId: string;
+  items: CartItem[];
+  totalItems?: number;
+  subtotal?: number;
+}
+
+export type CartResponse = ShoppingCart;
+
+export interface EnhancedShoppingCart extends Omit<ShoppingCart, 'items'> {
+  items: (CartItem & {
+    itemTotal: number;
+  })[];
+  totalItems: number;
+  total: number;
+}
+
+export type CartItemProps = CartItem & { itemTotal: number };

@@ -7,6 +7,7 @@ import { currencyFormatter } from '../../utils/formatting.ts';
 import { slugify } from '../../utils/stringFormatters.ts';
 import { useAddToCart } from '../../hooks/mutations/useAddToCart.ts';
 import { Spinner } from '../ui/Spinner.tsx';
+import { calculateOriginalPrice } from '../../utils/priceCalculator.ts';
 
 export const ShopItem = ({ id, name, price, image }: Instrument) => {
   const { mutate, isPending } = useAddToCart();
@@ -31,8 +32,11 @@ export const ShopItem = ({ id, name, price, image }: Instrument) => {
         </div>
         <div className="px-3 py-4 flex flex-col justify-between flex-1">
           <h3 className="text-secundary lg:text-lg">{name}</h3>
-          <div className="">
-            <div className="text-amber-700 py-4 text-xl font-semibold text-balance">
+          <div className="py-4">
+            <div className="text-secundary/60 text-sm line-through">
+              {calculateOriginalPrice(price)}
+            </div>
+            <div className="text-amber-700 text-xl font-semibold text-balance">
               {currencyFormatter.format(price)}{' '}
               <span className="hidden xs:inline-block text-secundary/70 text-sm font-medium">
                 À vista

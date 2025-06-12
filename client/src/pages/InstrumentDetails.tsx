@@ -11,6 +11,7 @@ import { PixIcon } from '../components/icons/PixIcon.tsx';
 import { CreditCardIcon } from '../components/icons/CreditCardIcon.tsx';
 import { useAddToCart } from '../hooks/mutations/useAddToCart.ts';
 import { Button } from '../components/ui/Button.tsx';
+import { calculateOriginalPrice } from '../utils/priceCalculator.ts';
 
 export const InstrumentDetails = () => {
   const params = useParams();
@@ -37,7 +38,7 @@ export const InstrumentDetails = () => {
                   name={instrument.name}
                 />
                 <div className="padding-x md:pl-0 md:pr-12 lg:pr-20 py-6 md:py-8 lg:py-14">
-                  <div className="flex justify-between items-center pb-6 gap-4 flex-wrap">
+                  <div className="grid pb-4 gap-4">
                     <div>
                       <h2 className="text-3xl">{instrument.name}</h2>
                       <div
@@ -49,11 +50,19 @@ export const InstrumentDetails = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="text-amber-600 py-4 text-2xl lg:text-3xl font-semibold text-balance">
-                      {currencyFormatter.format(instrument.price)}{' '}
-                      <span className="text-secundary/70 text-sm font-medium">
-                        À vista
-                      </span>
+                    <div className="py-4">
+                      <div className="line-through text-secundary/50 font-semibold text-balance text-lg">
+                        {calculateOriginalPrice(instrument.price)}
+                      </div>
+                      <div className="text-amber-600 text-2xl lg:text-3xl font-semibold text-balance">
+                        {currencyFormatter.format(instrument.price)}{' '}
+                        <span className="text-secundary/70 text-sm font-medium">
+                          À vista
+                        </span>{' '}
+                        <span className="text-secundary/50 text-sm font-medium">
+                          (com 10% de desconto)
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div>

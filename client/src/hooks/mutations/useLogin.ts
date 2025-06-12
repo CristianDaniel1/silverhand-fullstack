@@ -10,11 +10,16 @@ export const useLogin = () => {
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: postLogin,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ['userAuth'],
-      });
-      navigate('/');
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['userAuth'],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['cart'],
+        }),
+      ]);
 
+      navigate('/');
       toast.success('Login realizado com sucesso');
     },
     onError: () => {

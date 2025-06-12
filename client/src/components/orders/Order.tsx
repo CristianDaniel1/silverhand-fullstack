@@ -25,7 +25,7 @@ export const Order = (order: OrderType) => {
             Total: <span>{currencyFormatter.format(order.totalPrice)}</span>
           </div>
         </div>
-        <div className="xs:justify-self-end bg-white px-4 py-4">
+        <div className="xs:justify-self-end bg-white py-4">
           <div className="text-primary">Status</div>
           <div className="text-secundary/70">{statusObj[order.status]}</div>
         </div>
