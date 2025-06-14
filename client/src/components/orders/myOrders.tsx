@@ -1,6 +1,5 @@
 import { useMyOrders } from '../../hooks/queries/useMyOrders.ts';
 import { ErrorMessage } from '../ui/ErrorMessage.tsx';
-import { Spinner } from '../ui/Spinner.tsx';
 import { Order } from './Order.tsx';
 
 interface MyOrdersProps {
@@ -20,7 +19,7 @@ export const MyOrders = ({ userId }: MyOrdersProps) => {
       <h3 className="font-merry text-xl pb-6">Histórico de Pedidos</h3>
       {isPending && (
         <div className="py-8 flex justify-center">
-          <Spinner className="size-12 text-primary" />
+          <span className="loader"></span>
         </div>
       )}
       {orders && orders.length > 0 && (

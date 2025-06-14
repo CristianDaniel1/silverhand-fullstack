@@ -24,7 +24,7 @@ export const LoggedMenu = () => {
       <Link
         to="/login"
         aria-label="ir para o login"
-        className="flex sm:gap-2 sm:items-center text-slate-100 hover:text-primary duration-200 px-3 py-3"
+        className="flex sm:gap-2 sm:items-center hover:text-primary duration-200 px-3 py-3"
       >
         <UserIcon />
         <span className="hidden lg:inline-block">Entrar</span>
@@ -33,13 +33,13 @@ export const LoggedMenu = () => {
   else
     return (
       <div className="menu relative z-40 lg:z-50">
-        <button className="flex items-center justify-center text-slate-100 hover:text-primary duration-200 rounded-full gap-2">
+        <button className="flex items-center justify-center hover:text-primary duration-200 rounded-full gap-2">
           <UserCircleIcon className="object-cover size-8" />
           <span className="hidden sm:inline-block">
             {name && name.length > 15 ? '' : name}
           </span>
         </button>
-        <ul className="menu-list w-[12rem] duration-300 pt-4 bg-black absolute bottom-0 translate-y-full right-0 sm:right-0 z-10 shadow-lg font-normal grid grid-cols-1 text-left">
+        <ul className="menu-list text-secundary/90 w-[12rem] duration-300 pt-4 bg-inherit absolute bottom-0 translate-y-full right-0 sm:right-0 z-10 shadow-lg font-normal grid grid-cols-1 text-left">
           {!isPending && userAuth && userAuth.role === 'ADMIN_ROLE' && (
             <li>
               <Link

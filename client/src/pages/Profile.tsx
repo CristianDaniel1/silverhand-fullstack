@@ -10,7 +10,7 @@ import { useAuth } from '../hooks/queries/useAuth.ts';
 
 type TabProfile = 'My Orders' | 'Profile Details';
 
-export const Profile = () => {
+const Profile = () => {
   const { userAuth } = useAuth();
   const [currentTab, setCurrentTab] = useState<TabProfile>('My Orders');
 
@@ -49,7 +49,7 @@ export const Profile = () => {
                     </h2>
                     <div className="flex gap-2 text-secundary/70 items-center font-medium">
                       <EmailIcon />
-                      e-mail:{' '}
+                      e-mail:
                       <span className="text-primary font-medium">
                         {userAuth!.email}
                       </span>
@@ -94,3 +94,5 @@ export const Profile = () => {
     );
   }
 };
+
+export default Profile;

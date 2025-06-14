@@ -4,14 +4,17 @@ import { ScrollToTop } from '../components/ScrollToTop.tsx';
 import { Cart } from '../components/cart/Cart.tsx';
 import { Header } from '../components/header/Header.tsx';
 
-export const RootLayout = () => {
+const RootLayout = () => {
   return (
     <>
       <Header />
       <ScrollToTop />
       <Cart />
+      <div className=""></div>
       <Outlet />
       <Footer />
     </>
   );
 };
+
+export default RootLayout;

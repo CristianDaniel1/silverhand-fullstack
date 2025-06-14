@@ -31,5 +31,17 @@ export const calculateOriginalPrice = (
 
   const originalPrice = discountedPrice / (1 - discountPercentage / 100);
 
-  return currencyFormatter.format(parseFloat(originalPrice.toFixed(2)));
+  return currencyFormatter.format(originalPrice);
+};
+
+export const calculateDescount = (
+  originalPrice: number,
+  discountPercentage: number = 10
+): string => {
+  if (discountPercentage < 0 || discountPercentage > 100) {
+    throw new Error('A porcentagem de desconto deve estar entre 0% e 100%.');
+  }
+
+  const discountedPrice = (originalPrice * discountPercentage) / 100;
+  return currencyFormatter.format(discountedPrice);
 };

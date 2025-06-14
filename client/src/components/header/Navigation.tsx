@@ -26,7 +26,7 @@ export const Navigation = ({
   }
 
   return (
-    <nav className="flex justify-self-center tracking-wider text-sm z-50 lg:z-30 text-white">
+    <nav className="flex text-inherit justify-self-center tracking-wider text-sm z-50 lg:z-30">
       {isVisible && (
         <div
           className={`${

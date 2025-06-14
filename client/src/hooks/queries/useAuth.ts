@@ -5,7 +5,7 @@ export const useAuth = () => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['userAuth'],
     queryFn: () => fetchCheckAuth(),
-    staleTime: 1000 * 10,
+    staleTime: 1000 * 30,
     retry: false,
   });
 

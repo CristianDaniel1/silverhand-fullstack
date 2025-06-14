@@ -3,12 +3,17 @@ import { CartItemProps } from '../../types';
 import { currencyFormatter } from '../../utils/formatting.ts';
 import { Quantity } from '../QuantityItems.tsx';
 
+interface CustomItemProps extends CartItemProps {
+  mini?: boolean;
+}
+
 export const CartItem = ({
   quantity,
   instrument,
   itemTotal,
   id,
-}: CartItemProps) => {
+  mini = false,
+}: CustomItemProps) => {
   const { mutate, isPending } = useUpdateCartItem();
 
   function handleDecrease() {
@@ -21,11 +26,15 @@ export const CartItem = ({
 
   return (
     <li className="grid grid-cols-3 rounded-lg overflow-clip border-b border-b-secundary/20 py-6">
-      <div className="h-full row-span-2 flex items-center justify-center">
+      <div
+        className={`flex items-center justify-center ${
+          mini ? 'h-[8rem]' : 'h-full row-span-2'
+        }`}
+      >
         <img
           src={instrument.image}
           alt={instrument.name}
-          className="aspect-square object-cover w-full"
+          className="aspect-square object-contain h-full w-full"
         />
       </div>
       <div>
@@ -41,12 +50,14 @@ export const CartItem = ({
           {quantity} x {currencyFormatter.format(instrument.price)}
         </div>
       </div>
-      <Quantity
-        isUpdating={isPending}
-        currentQuant={quantity}
-        onDecrease={handleDecrease}
-        onIncrease={handleIncrease}
-      />
+      {!mini && (
+        <Quantity
+          isUpdating={isPending}
+          currentQuant={quantity}
+          onDecrease={handleDecrease}
+          onIncrease={handleIncrease}
+        />
+      )}
     </li>
   );
 };

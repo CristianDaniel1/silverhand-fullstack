@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../libs/axios';
 import { UserAuth } from '../../types';
+import { CustomError } from '../../utils/CustomError';
 
 export const fetchCheckAuth = async (allowedRoles?: string[]) => {
   try {
@@ -13,7 +14,7 @@ export const fetchCheckAuth = async (allowedRoles?: string[]) => {
     return { user, isAllowed };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new CustomError(error.response?.data.error, error.response?.status);
     }
   }
 };

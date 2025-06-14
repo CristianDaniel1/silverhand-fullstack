@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { queryClient } from '../../libs/tanstackQuery';
 import { fetchCheckAuth } from '../../services/auth/checkAuthFetch';
+import { CustomError } from '../CustomError';
 
 export const createAuthLoader = (allowedRoles?: string[]) => async () => {
   try {
@@ -29,6 +30,9 @@ export const loggedLoader = async () => {
 
     return;
   } catch (error: unknown) {
-    if (error instanceof Error) console.log(error.message);
+    if (error instanceof CustomError) {
+      if (error.status === 401) return;
+      throw error;
+    }
   }
 };

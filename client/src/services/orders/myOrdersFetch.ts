@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../libs/axios';
 import { OrdersResponse } from '../../types';
+import { CustomError } from '../../utils/CustomError';
 
 export const myOrdersFetch = async () => {
   try {
@@ -11,7 +12,10 @@ export const myOrdersFetch = async () => {
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new CustomError(
+        error.response?.data.message,
+        error.response?.status
+      );
     }
   }
 };

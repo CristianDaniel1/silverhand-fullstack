@@ -52,7 +52,7 @@ export const RegisterForm = () => {
         <div>
           <Input
             id="email"
-            label="Email *"
+            label="E-mail *"
             autoComplete="email"
             type="email"
             {...register('email')}

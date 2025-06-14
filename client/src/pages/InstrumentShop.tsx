@@ -4,7 +4,7 @@ import guitarView2 from '../assets/other-img.webp';
 import { ImageSlider } from '../components/ImageSlider.tsx';
 import { ShopContainer } from '../components/instrumentShop/ShopContainer.tsx';
 
-export const InstrumentShop = () => {
+const InstrumentShop = () => {
   return (
     <main className="relative overflow-x-clip">
       <div className="min-h-screen">
@@ -71,3 +71,5 @@ export const InstrumentShop = () => {
     </main>
   );
 };
+
+export default InstrumentShop;

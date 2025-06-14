@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { axiosInstance } from '../../libs/axios';
+import { CustomError } from '../../utils/CustomError';
 
 export const postLogout = async () => {
   try {
@@ -8,7 +9,7 @@ export const postLogout = async () => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new CustomError(error.response?.data.error, error.response?.status);
     }
   }
 };

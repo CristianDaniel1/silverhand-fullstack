@@ -1,15 +1,14 @@
-import { Footer } from '../components/Footer.tsx';
-
-export const FallbackElement = () => {
+const FallbackElement = () => {
   return (
     <>
-      <header className="overflow-x-clip fixed w-full z-50 bg-secundary">
-        <div className="flex justify-between gap-4 relative font-semibold tracking-wide items-center h-[65px] lg:h-24 mx-auto my-0 px-4 md:px-5 lg:px-10 max-container"></div>
-      </header>
-      <main className="padding-y padding-x overflow-clip max-container min-h-screen text-center">
-        Carregando...
+      <header className="overflow-x-clip w-full h-[65px] lg:h-24 px-4 md:px-5 lg:px-10 bg-secundary"></header>
+      <main className="padding-y padding-x overflow-x-clip flex justify-center min-h-screen">
+        <div className="py-4 min-h-screen">
+          <span className="loader"></span>
+        </div>
       </main>
-      <Footer />
     </>
   );
 };
+
+export default FallbackElement;

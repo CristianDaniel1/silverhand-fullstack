@@ -3,7 +3,6 @@ import { InstrumentCategory } from '../../types';
 import { ShopItem } from '../instrumentShop/ShopItem.tsx';
 import { ShopList } from '../instrumentShop/ShopList.tsx';
 import { ErrorMessage } from '../ui/ErrorMessage.tsx';
-import { Spinner } from '../ui/Spinner.tsx';
 
 interface RelatedProps {
   instrumentId: number;
@@ -24,7 +23,7 @@ export const RelatedInstruments = ({
   if (isPending) {
     return (
       <div className="flex justify-center padding-y">
-        <Spinner className="size-14" />
+        <span className="loader"></span>
       </div>
     );
   }

@@ -3,28 +3,27 @@ import { type ComponentPropsWithoutRef } from 'react';
 type InputProps = {
   label: string;
   id: string;
-  isRequired?: boolean;
   isInValid?: boolean;
+  className?: string;
 } & ComponentPropsWithoutRef<'input'>;
 
 export const Input = ({
   label,
   id,
-  isRequired = false,
   isInValid = false,
+  className = '',
   ...props
 }: InputProps) => {
   return (
-    <div className="py-4">
+    <div className={`${className ? className : 'py-4'}`}>
       <label htmlFor={id} className="block font-medium pb-[2px]">
         {label}
       </label>
       <input
         id={id}
         name={id}
-        required={isRequired}
         {...props}
-        className={`px-2 py-3 w-full text-secundary border-b border-b-secundary  ${
+        className={`px-2 py-3 w-full text-secundary border-b border-b-secundary disabled:bg-gray-100 disabled:border-none ${
           isInValid
             ? 'is-invalid focus-visible:outline focus:outline-red-700'
             : 'focus-visible:outline focus:outline-neutral-600'

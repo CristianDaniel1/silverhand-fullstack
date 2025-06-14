@@ -1,7 +1,7 @@
 import signUpImg from '../assets/rock-concert.webp';
 import { RegisterForm } from '../components/forms/RegisterForm.tsx';
 
-export const SignUp = () => {
+const SignUp = () => {
   return (
     <main className="relative overflow-x-clip lg:pt-12">
       <section className="padding-y flex justify-center max-container">
@@ -19,3 +19,5 @@ export const SignUp = () => {
     </main>
   );
 };
+
+export default SignUp;

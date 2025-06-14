@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { Navigation } from './Navigation.tsx';
 import logo from '../../assets/logo.png';
+import logoWhite from '../../assets/logo-white.png';
 import { CloseIcon } from '../icons/CloseIcon.tsx';
 import { HamburgerIcon } from '../icons/HamburgerIcon.tsx';
 import { CartButton } from '../cart/CartButton.tsx';
@@ -13,6 +14,7 @@ const audio = new Audio('./money-for-nothing.mp3');
 export const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isPlaceOrderPage = location.pathname === '/fazer-pedido';
 
   const isOpen = useCartStore(state => state.isOpen);
   const [isVisible, setIsVisible] = useState(false);
@@ -26,8 +28,14 @@ export const Header = () => {
   }
 
   return (
-    <header className="overflow-x-clip fixed w-full z-50 bg-secundary">
-      <div className="flex justify-between gap-4 relative font-semibold tracking-wide items-center h-[65px] lg:h-24 mx-auto my-0 px-4 md:px-5 lg:px-10 max-container">
+    <header
+      className={`overflow-x-clip fixed w-full z-50 ${
+        isPlaceOrderPage
+          ? 'bg-white text-secundary/80 shadow-md'
+          : 'bg-secundary text-slate-100'
+      }`}
+    >
+      <div className="flex justify-between gap-4 relative font-semibold tracking-wide items-center h-[65px] lg:h-24 mx-auto my-0 padding-x max-container">
         {isHomePage ? (
           <a href="#" className="flex items-center gap-2 h-full pt-[4px]">
             <div className="h-full aspect-video">
@@ -44,7 +52,7 @@ export const Header = () => {
           <Link to="/" className="flex items-center gap-2 h-full pt-[4px]">
             <div className="h-full aspect-video">
               <img
-                src={logo}
+                src={isPlaceOrderPage ? logoWhite : logo}
                 height={120}
                 width={180}
                 alt="Logo Silverhand Store"
@@ -54,10 +62,13 @@ export const Header = () => {
           </Link>
         )}
         <div
-          className="text-white hidden sm:block text-xl sm:text-2xl font-merry font-light"
+          className="hidden sm:block text-xl sm:text-2xl font-merry font-medium"
           onClick={handleAudio}
         >
-          Let's <span className="text-primary">Rock!</span>
+          Let's{' '}
+          <span className="text-primary">
+            {isPlaceOrderPage ? 'Buy' : 'Rock'}!
+          </span>
         </div>
         <div className="flex items-center justify-center gap-2 sm:gap-4">
           <CartButton isVisible={isVisible} onCloseBar={handleToggleBar} />
@@ -66,7 +77,7 @@ export const Header = () => {
             <button
               onClick={handleToggleBar}
               aria-label="abrir e fechar menu"
-              className="z-50 flex items-center lg:hidden text-slate-100 duration-200 hover:text-primary"
+              className="z-50 flex text-inherit items-center lg:hidden duration-200 hover:text-primary"
             >
               {isVisible ? <CloseIcon /> : <HamburgerIcon />}
             </button>

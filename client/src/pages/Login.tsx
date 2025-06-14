@@ -1,7 +1,7 @@
 import loginImg from '../assets/rock-in.webp';
 import { LoginForm } from '../components/forms/LoginForm.tsx';
 
-export const Login = () => {
+const Login = () => {
   return (
     <main className="relative overflow-x-clip lg:pt-12">
       <section className="padding-y grid grid-cols-1 lg:grid-cols-2 max-container">
@@ -9,6 +9,7 @@ export const Login = () => {
           <img
             src={loginImg}
             alt="Guitarrista emocionado"
+            loading="lazy"
             className="object-cover w-full aspect-video brightness-75 animate-opacity"
           />
         </div>
@@ -19,3 +20,5 @@ export const Login = () => {
     </main>
   );
 };
+
+export default Login;

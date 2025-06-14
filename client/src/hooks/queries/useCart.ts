@@ -6,7 +6,7 @@ export const useCart = () => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['cart'],
     queryFn: fetchCart,
-    staleTime: 1000 * 10,
+    staleTime: 1000 * 60,
     retry(_, error: CustomError) {
       if (error.status == 401 || error.status === 404) return false;
       return true;

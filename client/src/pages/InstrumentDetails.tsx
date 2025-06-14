@@ -13,7 +13,7 @@ import { useAddToCart } from '../hooks/mutations/useAddToCart.ts';
 import { Button } from '../components/ui/Button.tsx';
 import { calculateOriginalPrice } from '../utils/priceCalculator.ts';
 
-export const InstrumentDetails = () => {
+const InstrumentDetails = () => {
   const params = useParams();
   const { mutate, isPending } = useAddToCart();
 
@@ -122,3 +122,5 @@ export const InstrumentDetails = () => {
     </>
   );
 };
+
+export default InstrumentDetails;

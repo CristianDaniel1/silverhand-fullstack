@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../libs/axios';
 import { InstrumentCategory, PaginatedInstruments } from '../../types';
+import { CustomError } from '../../utils/CustomError';
 
 export interface FetchInstrumentsParams {
   page?: number;
@@ -38,7 +39,7 @@ export const fetchInstruments = async ({
     return { data: response.data, nextCursor };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new CustomError(error.response?.data.error, error.response?.status);
     }
   }
 };

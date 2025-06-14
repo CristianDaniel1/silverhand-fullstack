@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Instrument } from '../../types';
 import { axiosInstance } from '../../libs/axios.ts';
+import { CustomError } from '../../utils/CustomError.tsx';
 
 interface InstrumentIdFetchParams {
   id: number;
@@ -19,7 +20,10 @@ export const fetchInstrumentId = async ({
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data.error);
+      throw new CustomError(
+        error.response?.data.error || error.response?.data.message,
+        error.response?.status
+      );
     }
   }
 };

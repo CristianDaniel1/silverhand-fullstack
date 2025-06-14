@@ -5,7 +5,7 @@ export const useMyOrders = ({ id }: { id: string }) => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['my-orders', { id }],
     queryFn: myOrdersFetch,
-    staleTime: 1000 * 10,
+    staleTime: 1000 * 60 * 60,
   });
 
   return { data, isPending, isError, error };

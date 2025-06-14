@@ -20,7 +20,7 @@ export const CartButton = ({ isVisible, onCloseBar }: CartButtonProps) => {
 
   return (
     <button
-      className="flex gap-2 items-center text-slate-100 hover:text-primary duration-200 relative"
+      className="flex gap-2 items-center hover:text-primary duration-200 relative"
       aria-label="abrir carrinho de compras"
       onClick={handleToggleCart}
     >

@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore.ts';
 import { currencyFormatter } from '../../utils/formatting.ts';
 import { TrashIcon } from '../icons/TrashIcon.tsx';
-import { Button } from '../ui/Button.tsx';
 import { CartList } from './CartList.tsx';
-import { Message } from '../ui/Message.tsx';
 import { useCart } from '../../hooks/queries/useCart.ts';
 import { CartItem } from './CartItem.tsx';
 import { enhanceCart } from '../../utils/priceCalculator.ts';
@@ -12,35 +9,20 @@ import { Backdrop } from './Backdrop.tsx';
 import { CartHeader } from './CartHeader.tsx';
 import { EmptyCart } from './EmptyCart.tsx';
 import { useDeleteCart } from '../../hooks/mutations/useDeleteCart.ts';
-import { Spinner } from '../ui/Spinner.tsx';
+import { Link } from 'react-router';
+
+const linkClasses =
+  'px-6 text-center border-2 py-3 rounded bg-primary border-transparent text-secundary sm:hover:bg-white sm:hover:text-primary sm:hover:border-primary sm:active:text-secundary sm:active:bg-primary active:text-primary active:bg-white active:border-primary font-bold tracking-wider duration-200 z-[1] block w-full';
 
 export const Cart = () => {
-  const [buy, setBuy] = useState(false);
-
   const isOpen = useCartStore(state => state.isOpen);
   const hideCart = useCartStore(state => state.hideCart);
   const { data } = useCart();
   const { mutate, isPending } = useDeleteCart();
 
-  function handleBuyClick() {
-    setBuy(true);
-  }
-
   function handleClearCart() {
     mutate();
   }
-
-  useEffect(() => {
-    if (buy) {
-      const timer = setTimeout(() => {
-        setBuy(false);
-      }, 3000);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [buy]);
 
   let newData;
   if (data && data.items?.length) {
@@ -67,7 +49,7 @@ export const Cart = () => {
               ))}
               {isPending && (
                 <div className="py-8 flex justify-center">
-                  <Spinner className="size-8 text-secundary" />
+                  <span className="loader"></span>
                 </div>
               )}
             </CartList>
@@ -87,15 +69,17 @@ export const Cart = () => {
                   <TrashIcon /> {isPending ? 'Excluindo...' : 'Excluir'}
                 </button>
               </div>
-              <Button
-                bgColor
-                disabled={isPending}
-                className="block w-full"
-                onClick={handleBuyClick}
-              >
-                Realizar Pedido!
-              </Button>
-              {buy && <Message message="É necessário estar logado!" />}
+              {isPending ? (
+                <span className={linkClasses}>Realizar Pedido!</span>
+              ) : (
+                <Link
+                  to="/fazer-pedido"
+                  onClick={hideCart}
+                  className={linkClasses}
+                >
+                  Realizar Pedido!
+                </Link>
+              )}
             </div>
           </>
         )}

@@ -1,24 +1,28 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { lazy, Suspense } from 'react';
 
-import { RootLayout } from './pages/RootLayout.tsx';
-import { Login } from './pages/Login.tsx';
-import { SignUp } from './pages/SignUp.tsx';
-import { InstrumentShop } from './pages/InstrumentShop.tsx';
-import { InstrumentDetails } from './pages/InstrumentDetails.tsx';
-import { Error } from './pages/Error.tsx';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import RootLayout from './pages/RootLayout.tsx';
+import InstrumentShop from './pages/InstrumentShop.tsx';
+import ErrorElement from './pages/Error.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './libs/tanstackQuery.ts';
-import { Profile } from './pages/Profile.tsx';
 import { createAuthLoader, loggedLoader } from './utils/loaders/authLoader.ts';
-import { FallbackElement } from './pages/FallbackElement.tsx';
+import FallbackElement from './pages/FallbackElement.tsx';
 import { Toaster } from 'sonner';
 import { instrumentLoader } from './utils/loaders/instrumentLoader.ts';
+
+// const InstrumentShop = lazy(() => import('./pages/InstrumentShop'));
+const Login = lazy(() => import('./pages/Login'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const InstrumentDetails = lazy(() => import('./pages/InstrumentDetails'));
+const Profile = lazy(() => import('./pages/Profile'));
+const PlaceOrder = lazy(() => import('./pages/PlaceOrder'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorElement />,
     hydrateFallbackElement: <FallbackElement />,
     children: [
       {
@@ -27,22 +31,47 @@ const router = createBrowserRouter([
       },
       {
         path: 'instrumentos-de-cordas/:instrumentId',
-        element: <InstrumentDetails />,
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <InstrumentDetails />
+          </Suspense>
+        ),
         loader: instrumentLoader,
       },
       {
         path: 'login',
-        element: <Login />,
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <Login />
+          </Suspense>
+        ),
         loader: loggedLoader,
       },
       {
         path: 'cadastro',
-        element: <SignUp />,
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <SignUp />
+          </Suspense>
+        ),
         loader: loggedLoader,
       },
       {
         path: 'perfil',
-        element: <Profile />,
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <Profile />
+          </Suspense>
+        ),
+        loader: createAuthLoader(),
+      },
+      {
+        path: 'fazer-pedido',
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <PlaceOrder />
+          </Suspense>
+        ),
         loader: createAuthLoader(),
       },
     ],
