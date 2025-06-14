@@ -31,7 +31,7 @@ export const calculateOriginalPrice = (
 
   const originalPrice = discountedPrice / (1 - discountPercentage / 100);
 
-  return currencyFormatter.format(originalPrice);
+  return currencyFormatter(originalPrice);
 };
 
 export const calculateDescount = (
@@ -43,5 +43,5 @@ export const calculateDescount = (
   }
 
   const discountedPrice = (originalPrice * discountPercentage) / 100;
-  return currencyFormatter.format(discountedPrice);
+  return currencyFormatter(discountedPrice);
 };

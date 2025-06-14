@@ -10,7 +10,6 @@ const RootLayout = () => {
       <Header />
       <ScrollToTop />
       <Cart />
-      <div className=""></div>
       <Outlet />
       <Footer />
     </>

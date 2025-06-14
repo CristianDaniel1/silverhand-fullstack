@@ -14,6 +14,7 @@ import { instrumentLoader } from './utils/loaders/instrumentLoader.ts';
 // const InstrumentShop = lazy(() => import('./pages/InstrumentShop'));
 const Login = lazy(() => import('./pages/Login'));
 const SignUp = lazy(() => import('./pages/SignUp'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const InstrumentDetails = lazy(() => import('./pages/InstrumentDetails'));
 const Profile = lazy(() => import('./pages/Profile'));
 const PlaceOrder = lazy(() => import('./pages/PlaceOrder'));
@@ -46,6 +47,14 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         loader: loggedLoader,
+      },
+      {
+        path: 'esqueci-minha-senha',
+        element: (
+          <Suspense fallback={<FallbackElement />}>
+            <ForgotPassword />
+          </Suspense>
+        ),
       },
       {
         path: 'cadastro',

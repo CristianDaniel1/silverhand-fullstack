@@ -37,7 +37,7 @@ export const ShopItem = ({ id, name, price, image }: Instrument) => {
               {calculateOriginalPrice(price)}
             </div>
             <div className="text-amber-700 text-xl font-semibold text-balance">
-              {currencyFormatter.format(price)}{' '}
+              {currencyFormatter(price)}{' '}
               <span className="hidden xs:inline-block text-secundary/70 text-sm font-medium">
                 À vista
               </span>

@@ -85,7 +85,7 @@ export const LoginForm = () => {
       </p>
       <p className="text-center mt-6">
         <Link
-          to="/"
+          to="/esqueci-minha-senha"
           className="text-primary font-semibold sm:hover:text-secundary duration-200 active:text-secundary"
         >
           Esqueci minha senha

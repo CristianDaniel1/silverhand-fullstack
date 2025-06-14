@@ -107,7 +107,6 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
               disabled={!isEditing}
               isInValid={errors.phoneNumber ? true : false}
               {...register('phoneNumber')}
-              isRequired={false}
               placeholder="Digite o seu Telefone ou celular"
             />
             {errors.phoneNumber && (

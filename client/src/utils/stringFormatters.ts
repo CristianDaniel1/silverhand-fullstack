@@ -1,4 +1,6 @@
 export const firstNameFormat = (name: string) => {
+  if (!name || typeof name !== 'string') return;
+
   const firstName = name.split(' ')[0];
   return firstName.charAt(0).toUpperCase() + firstName.slice(1);
 };

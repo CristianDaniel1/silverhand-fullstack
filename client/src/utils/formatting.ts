@@ -1,7 +1,9 @@
-export const currencyFormatter = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL',
-});
+export const currencyFormatter = (value: number) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+};
 
 export const dateFormatter = (date: string | Date) =>
   new Date(date).toLocaleString();

@@ -10,7 +10,11 @@ export type PaymentMethods = 'Pix' | 'Cartão' | 'Deus' | null;
 const classes =
   'flex items-center justify-center gap-2 px-3 py-2 duration-200 rounded-md w-full h-full border-2';
 
-export const Payment = () => {
+interface PaymentProps {
+  onPlaceOrder: () => void;
+}
+
+export const Payment = ({ onPlaceOrder }: PaymentProps) => {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethods>(null);
 
   function handleClick(method: PaymentMethods) {
@@ -63,6 +67,7 @@ export const Payment = () => {
       <Button
         bgColor
         disabled={!paymentMethod}
+        onClick={onPlaceOrder}
         className="w-full disabled:bg-slate-300 disabled:hover:bg-slate-400 disabled:hover:border-slate-700 disabled:hover:text-secundary flex justify-center items-center gap-3"
       >
         {!paymentMethod && <LockIcon />} Confirmar Pedido

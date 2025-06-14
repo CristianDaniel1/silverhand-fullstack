@@ -22,7 +22,7 @@ export const Order = (order: OrderType) => {
             {dateFormatter(order.orderedAt)}
           </div>
           <div className="text-lg sm:text-xl">
-            Total: <span>{currencyFormatter.format(order.totalPrice)}</span>
+            Total: <span>{currencyFormatter(order.totalPrice)}</span>
           </div>
         </div>
         <div className="xs:justify-self-end bg-white py-4">

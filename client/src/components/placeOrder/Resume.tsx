@@ -31,7 +31,7 @@ export const Resume = ({ total }: ResumeProps) => {
       </div>
       <div className="flex justify-between">
         <div className="font-medium">Total</div>
-        <div className="font-semibold">{currencyFormatter.format(total)}</div>
+        <div className="font-semibold">{currencyFormatter(total)}</div>
       </div>
     </div>
   );

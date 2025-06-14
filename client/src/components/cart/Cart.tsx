@@ -58,7 +58,7 @@ export const Cart = () => {
                 <p className="font-medium tracking-wide text-lg">
                   Total a pagar:{' '}
                   <span className="text-amber-700">
-                    {currencyFormatter.format(newData.total)}
+                    {currencyFormatter(newData.total)}
                   </span>
                 </p>
                 <button

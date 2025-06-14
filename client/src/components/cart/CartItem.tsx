@@ -44,10 +44,10 @@ export const CartItem = ({
       </div>
       <div className="text-secundary font-semibold pt-4 padding-x text-sm sm:text-base">
         <div className="flex justify-end pb-2">
-          {currencyFormatter.format(itemTotal)}
+          {currencyFormatter(itemTotal)}
         </div>
         <div className="text-secundary/70 font-normal text-xs flex justify-end">
-          {quantity} x {currencyFormatter.format(instrument.price)}
+          {quantity} x {currencyFormatter(instrument.price)}
         </div>
       </div>
       {!mini && (

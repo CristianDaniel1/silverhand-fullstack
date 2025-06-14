@@ -55,7 +55,7 @@ const InstrumentDetails = () => {
                         {calculateOriginalPrice(instrument.price)}
                       </div>
                       <div className="text-amber-600 text-2xl lg:text-3xl font-semibold text-balance">
-                        {currencyFormatter.format(instrument.price)}{' '}
+                        {currencyFormatter(instrument.price)}{' '}
                         <span className="text-secundary/70 text-sm font-medium">
                           À vista
                         </span>{' '}

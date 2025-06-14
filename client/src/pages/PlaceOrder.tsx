@@ -2,17 +2,43 @@ import { CartItem } from '../components/cart/CartItem.tsx';
 import { DestinationInfo } from '../components/placeOrder/DestinationInfo.tsx';
 import { Payment } from '../components/placeOrder/Payment.tsx';
 import { Resume } from '../components/placeOrder/Resume.tsx';
+import { ErrorMessage } from '../components/ui/ErrorMessage.tsx';
+import { Spinner } from '../components/ui/Spinner.tsx';
+import { useCreateOrder } from '../hooks/mutations/useCreateOrder.ts';
 import { useAuth } from '../hooks/queries/useAuth.ts';
 import { useCart } from '../hooks/queries/useCart.ts';
 import { enhanceCart } from '../utils/priceCalculator.ts';
+import { firstNameFormat } from '../utils/stringFormatters.ts';
 
 const PlaceOrder = () => {
+  const { mutate, isPending: isLoadingPay, isSuccess } = useCreateOrder();
   const { userAuth, isError: isErrorAuth } = useAuth();
-  const { data } = useCart();
+  const { data, isPending: IsLoadingCart, isError: isErrorCart } = useCart();
 
   let newData;
   if (data && data.items?.length) {
     newData = enhanceCart(data);
+  }
+
+  function handleConfirmOrder() {
+    mutate();
+  }
+
+  if (!isSuccess && (isErrorCart || !data?.items.length)) {
+    return (
+      <main className="pt-8 sm:pt-12 bg-slate-50">
+        <div className="padding-y flex justify-center gap-14 max-container-3 lg:max-container-2 min-h-screen padding-x bg-white">
+          <div>
+            <ErrorMessage
+              title={`Carrinho vazio, ${firstNameFormat(
+                userAuth?.name || ''
+              )}!`}
+              message="Não é possível continuar com o pagamento sem instrumentos"
+            />
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -35,6 +61,11 @@ const PlaceOrder = () => {
               Instrumentos no carrinho
             </h2>
             <ul className="grid gap-3 custom-shadow-2">
+              {IsLoadingCart && (
+                <div className="py-8 flex justify-center">
+                  <span className="loader"></span>
+                </div>
+              )}
               {newData?.items &&
                 newData.items?.length > 0 &&
                 newData.items.map(item => (
@@ -43,15 +74,19 @@ const PlaceOrder = () => {
             </ul>
           </section>
         </div>
-        {!isErrorAuth && newData?.total && newData.total > 0 && (
-          <section className="lg:col-span-2 order-2">
-            <h2 className="font-merry text-xl pb-6">Resumo do pedido</h2>
+        <section className="lg:col-span-2 order-2">
+          <h2 className="font-merry text-xl pb-6">Resumo do pedido</h2>
+          {!isErrorAuth && newData?.total && newData.total > 0 && (
             <div className="grid gap-6">
               <Resume total={newData.total} />
-              <Payment />
+              {isLoadingPay ? (
+                <Spinner className="mx-0 size-12 text-primary" />
+              ) : (
+                <Payment onPlaceOrder={handleConfirmOrder} />
+              )}
             </div>
-          </section>
-        )}
+          )}
+        </section>
       </div>
     </main>
   );
