@@ -86,14 +86,16 @@ export class AuthController extends ControllerHandleError {
   };
 
   public resetPassword = async (req: Request, res: Response) => {
-    const { email, newPassword } = req.body;
+    const user = UserResponseDto.fromEntity(req.user!);
+    const { newPassword } = req.body;
+
     const resetToken = req.cookies['reset_token'];
 
     try {
       await new ResetPassword(this.userRepository).execute(
-        email,
-        resetToken,
-        newPassword
+        user.email,
+        newPassword,
+        resetToken
       );
       res.status(200).json({ message: 'Senha atualizada com sucesso' });
     } catch (error: unknown) {

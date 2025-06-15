@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const ResetPasswordSchema = z.object({
   body: z.object({
-    email: z.string().email(),
     newPassword: z
       .string({
         invalid_type_error: 'Password must be a string',
