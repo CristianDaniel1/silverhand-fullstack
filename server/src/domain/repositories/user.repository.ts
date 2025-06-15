@@ -10,4 +10,11 @@ export abstract class UserRepository {
   abstract findByCpf(cpf: string): Promise<UserEntity>;
   abstract updateById(updateUserDto: UpdateUserDto): Promise<UserEntity>;
   abstract deleteById(id: string): Promise<UserEntity>;
+  abstract updateResetTokenByEmail(
+    email: string,
+    token: string,
+    expiresAt: Date
+  ): Promise<void>;
+  abstract updatePassword(email: string, hashedPassword: string): Promise<void>;
+  abstract clearResetToken(email: string): Promise<void>;
 }

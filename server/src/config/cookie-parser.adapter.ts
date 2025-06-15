@@ -9,4 +9,20 @@ export class CookieParserAdapter {
       secure: NODE_ENV === 'production',
     });
   }
+
+  static generateCookieWithOptions(
+    name: string,
+    token: string,
+    res: Response,
+    options: {
+      maxAge?: number;
+    }
+  ) {
+    res.cookie(name, token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: NODE_ENV === 'production',
+      maxAge: options.maxAge,
+    });
+  }
 }

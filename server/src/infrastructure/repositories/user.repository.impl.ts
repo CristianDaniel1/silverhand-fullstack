@@ -27,4 +27,17 @@ export class UserRepositoryImpl implements UserRepository {
   deleteById(id: string): Promise<UserEntity> {
     return this.datasource.deleteById(id);
   }
+  updateResetTokenByEmail(
+    email: string,
+    token: string,
+    expiresAt: Date
+  ): Promise<void> {
+    return this.datasource.updateResetTokenByEmail(email, token, expiresAt);
+  }
+  updatePassword(email: string, hashedPassword: string): Promise<void> {
+    return this.datasource.updatePassword(email, hashedPassword);
+  }
+  clearResetToken(email: string): Promise<void> {
+    return this.datasource.clearResetToken(email);
+  }
 }

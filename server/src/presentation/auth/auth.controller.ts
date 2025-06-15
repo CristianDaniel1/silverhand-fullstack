@@ -7,9 +7,15 @@ import { LoginUserDto } from '../../application/auth/dtos/login-user.dto';
 import { LoginUser } from '../../application/auth/use-cases/login-user';
 import { CookieParserAdapter } from '../../config/cookie-parser.adapter';
 import { UserResponseDto } from '../../application/users/dtos/user-response.dto';
+import { RequestPasswordReset } from '../../application/auth/use-cases/send-request-password-reset';
+import { ResetPassword } from '../../application/auth/use-cases/reset-password';
+import { EmailService } from '../emails/email.service';
 
 export class AuthController extends ControllerHandleError {
-  constructor(private readonly userRepository: UserRepository) {
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly emailService: EmailService
+  ) {
     super();
   }
 
@@ -58,6 +64,38 @@ export class AuthController extends ControllerHandleError {
         .clearCookie('access_token')
         .status(200)
         .json({ message: 'Deslogado com sucesso.' });
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
+  };
+
+  public requestPasswordReset = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    try {
+      await new RequestPasswordReset(
+        this.userRepository,
+        this.emailService
+      ).execute(email, res);
+      res
+        .status(200)
+        .json({ message: 'E-mail de recuperação enviado com sucesso' });
+    } catch (error: unknown) {
+      this.handleError(res, error);
+    }
+  };
+
+  public resetPassword = async (req: Request, res: Response) => {
+    const { email, newPassword } = req.body;
+    const resetToken = req.cookies['reset_token'];
+
+    try {
+      await new ResetPassword(this.userRepository).execute(
+        email,
+        resetToken,
+        newPassword
+      );
+      res.status(200).json({ message: 'Senha atualizada com sucesso' });
     } catch (error: unknown) {
       this.handleError(res, error);
     }

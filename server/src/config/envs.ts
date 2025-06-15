@@ -12,6 +12,9 @@ const envSchema = z.object({
   POSTGRES_PORT: z.number({ coerce: true }).default(5432),
   POSTGRES_PASSWORD: z.string().min(1, 'postgres password is required'),
   POSTGRES_DB: z.string().min(1, 'database name is required'),
+  MAILER_SERVICE: z.string(),
+  MAILER_EMAIL: z.string().email(),
+  MAILER_SECRET_KEY: z.string(),
 
   JWT_SEED: z.string().min(1, 'JWT SEED is required'),
   NODE_ENV: z.string(),
@@ -39,6 +42,9 @@ export const {
   POSTGRES_PORT,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
+  MAILER_SERVICE,
+  MAILER_EMAIL,
+  MAILER_SECRET_KEY,
   JWT_SEED,
   NODE_ENV,
 } = data!;

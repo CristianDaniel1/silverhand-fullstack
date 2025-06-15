@@ -1,7 +1,6 @@
 import { RegisterUserDto } from '../../application/auth/dtos/register-user.dto';
 import { UpdateUserDto } from '../../application/users/dtos/update-user.dto';
 import { prisma } from '../../data/postgres';
-
 import { UserDatasource } from '../../domain/datasources/user.datasource';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../shared/errors/custom.error';
@@ -105,5 +104,36 @@ export class UserDatasourceImpl implements UserDatasource {
     });
 
     return UserEntity.fromObject(deleted);
+  }
+
+  async updateResetTokenByEmail(
+    email: string,
+    token: string,
+    expiresAt: Date
+  ): Promise<void> {
+    await prisma.user.update({
+      where: { email },
+      data: {
+        resetToken: token,
+        resetTokenExpiresAt: expiresAt,
+      },
+    });
+  }
+  async updatePassword(email: string, hashedPassword: string): Promise<void> {
+    await prisma.user.update({
+      where: { email },
+      data: {
+        password: hashedPassword,
+      },
+    });
+  }
+  async clearResetToken(email: string): Promise<void> {
+    await prisma.user.update({
+      where: { email },
+      data: {
+        resetToken: null,
+        resetTokenExpiresAt: null,
+      },
+    });
   }
 }

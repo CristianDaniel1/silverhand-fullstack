@@ -18,7 +18,10 @@ export class UserEntity {
     public createdAt: Date,
     public updatedAt: Date,
     public phoneNumber?: string,
-    public profilePic?: string
+    public profilePic?: string,
+
+    public resetToken?: string,
+    public resetTokenExpiresAt?: Date
   ) {}
 
   public static fromObject(object: { [key: string]: any }): UserEntity {
@@ -35,6 +38,8 @@ export class UserEntity {
       updatedAt,
       phoneNumber,
       profilePic,
+      resetToken,
+      resetTokenExpiresAt,
     } = object;
 
     if (!id || !name || !email || !cpf || !password || !zipCode || !address) {
@@ -53,7 +58,9 @@ export class UserEntity {
       createdAt,
       updatedAt,
       phoneNumber,
-      profilePic
+      profilePic,
+      resetToken,
+      resetTokenExpiresAt ? new Date(resetTokenExpiresAt) : undefined
     );
   }
 }

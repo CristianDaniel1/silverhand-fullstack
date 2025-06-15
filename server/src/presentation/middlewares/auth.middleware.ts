@@ -38,4 +38,35 @@ export class AuthMiddleWare {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+  static async validateResetToken(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const resetToken = req.cookies['reset_token'];
+
+    if (!resetToken) {
+      return res.status(401).json({ error: 'Reset token não encontrado' });
+    }
+
+    try {
+      const user = await prisma.user.findFirst({
+        where: {
+          resetToken,
+          resetTokenExpiresAt: { gte: new Date() },
+        },
+      });
+
+      if (!user) {
+        return res.status(401).json({ error: 'Token inválido ou expirado' });
+      }
+
+      req.user = UserEntity.fromObject(user);
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 }

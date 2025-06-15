@@ -2,6 +2,8 @@ import express, { Router } from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { corsMiddleware } from './middlewares/cors.middleware';
+import { EmailService } from './emails/email.service';
+import { resetPasswordEmail } from '../shared/templates/request-password';
 
 interface Options {
   port: number;
