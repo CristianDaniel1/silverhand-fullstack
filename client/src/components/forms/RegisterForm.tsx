@@ -44,6 +44,7 @@ export const RegisterForm = () => {
             id="name"
             label="Nome *"
             type="text"
+            isInValid={errors.name ? true : false}
             {...register('name')}
             placeholder="Digite o seu nome"
           />
@@ -53,6 +54,7 @@ export const RegisterForm = () => {
           <Input
             id="email"
             label="E-mail *"
+            isInValid={errors.email ? true : false}
             autoComplete="email"
             type="email"
             {...register('email')}
@@ -67,6 +69,7 @@ export const RegisterForm = () => {
             id="cpf"
             label="CPF *"
             type="number"
+            isInValid={errors.cpf ? true : false}
             {...register('cpf')}
             placeholder="Digite o seu CPF"
           />
@@ -76,6 +79,7 @@ export const RegisterForm = () => {
           <Input
             id="telefone"
             label="Telefone/Celular"
+            isInValid={errors.phoneNumber ? true : false}
             type="number"
             {...register('phoneNumber')}
             placeholder="Digite o seu Telefone ou celular"
@@ -90,6 +94,7 @@ export const RegisterForm = () => {
           <Input
             id="endereco"
             label="Endereço *"
+            isInValid={errors.address ? true : false}
             placeholder="Digite o seu endereço"
             type="text"
             {...register('address')}
@@ -100,6 +105,7 @@ export const RegisterForm = () => {
           <Input
             id="cep"
             label="CEP para entrega *"
+            isInValid={errors.zipCode ? true : false}
             type="number"
             {...register('zipCode')}
             placeholder="Informe o CEP"
@@ -113,6 +119,7 @@ export const RegisterForm = () => {
             id="password"
             label="Senha *"
             autoComplete="new-password"
+            isInValid={errors.password ? true : false}
             {...register('password')}
             placeholder="Digite uma senha segura"
           />
@@ -122,6 +129,7 @@ export const RegisterForm = () => {
           <PasswordInput
             id="confirm-password"
             label="Confirmar senha *"
+            isInValid={errors.confirmPassword ? true : false}
             autoComplete="new-password"
             {...register('confirmPassword')}
             placeholder="Confirme a sua nova senha"
@@ -146,7 +154,10 @@ export const RegisterForm = () => {
       </Button>
       <p className="text-center mt-6 text-balance">
         Já tem uma conta em SilverHand?{' '}
-        <Link to="/login" className="text-primary font-semibold">
+        <Link
+          to="/login"
+          className="text-primary font-semibold sm:hover:text-secundary duration-200 active:text-secundary"
+        >
           Faça seu login
         </Link>
       </p>

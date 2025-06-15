@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import cartEmpty from '../../assets/emptyCart.png';
+import cartEmpty from '../../assets/emptyCart.webp';
 import { useAuth } from '../../hooks/queries/useAuth';
 
 interface EmptyCartProps {
