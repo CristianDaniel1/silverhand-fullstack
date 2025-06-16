@@ -11,7 +11,6 @@ import {
 } from '../../application/instruments/use-cases';
 import { ControllerHandleError } from '../../shared/errors/handle-custom.error';
 import { PaginationDto } from '../../application/instruments/dtos/pagination.dto';
-import { Category } from '../../domain/entities/instrument.entity';
 
 export class InstrumentController extends ControllerHandleError {
   constructor(private readonly instrumentRepository: InstrumentRepository) {

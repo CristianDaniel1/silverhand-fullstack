@@ -6,7 +6,6 @@ import { UserDatasourceImpl } from '../../infrastructure/datasources/user.dataso
 import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
 import { UuidSchema } from '../../shared/schemas/uuid.validator';
 import { UpdateUserSchema } from './schemas/update-user.validator';
-import { AuthMiddleWare } from '../middlewares/auth.middleware';
 import { AuthRolesMiddleware } from '../middlewares/auth-roles.middleware';
 import { Role } from '../../domain/entities/user.entity';
 import { UserSchema } from './schemas/user.validator';

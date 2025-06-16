@@ -3,6 +3,7 @@ import { UserRepository } from '../../../domain/repositories/user.repository';
 import { UserResponseDto } from '../dtos/user-response.dto';
 import { CustomError } from '../../../shared/errors/custom.error';
 import { UpdateUserDto } from '../dtos/update-user.dto';
+import cloudinary from '../../../config/cloudinary';
 
 export interface UpdateUserUseCase {
   execute(
@@ -21,7 +22,17 @@ export class UpdateUser implements UpdateUserUseCase {
     if (loggedUser?.role !== Role.ADMIN && loggedUser?.id !== dto.id)
       throw CustomError.forbidden('Ação não permitida');
 
-    const user = await this.repository.updateById(dto);
+    let dtoWithProfilePic;
+
+    if (dto.profilePic) {
+      const upload = await cloudinary.uploader.upload(dto.profilePic);
+      dtoWithProfilePic = UpdateUserDto.create({
+        ...dto,
+        profilePic: upload.secure_url,
+      });
+    }
+
+    const user = await this.repository.updateById(dtoWithProfilePic || dto);
     return UserResponseDto.fromEntity(user);
   }
 }

@@ -12,7 +12,7 @@ export class UserEntity {
     public email: string,
     public cpf: string,
     public password: string,
-    public zipCode: number,
+    public zipCode: string,
     public address: string,
     public role: Role = Role.USER,
     public createdAt: Date,

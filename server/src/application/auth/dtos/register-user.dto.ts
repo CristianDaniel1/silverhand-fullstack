@@ -4,7 +4,7 @@ export class RegisterUserDto {
     public readonly email: string,
     public readonly cpf: string,
     public readonly password: string,
-    public readonly zipCode: number,
+    public readonly zipCode: string,
     public readonly address: string,
     public readonly phoneNumber?: string,
     public readonly profilePic?: string

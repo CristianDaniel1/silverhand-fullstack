@@ -20,10 +20,9 @@ export const RegisterUserSchema = z.object({
       })
       .min(6, 'Password must have at least 6 characters'),
     zipCode: z
-      .number({ required_error: 'zipCode is required' })
-      .int()
-      .min(10000000, 'ZIP code must have exactly 8 digits')
-      .max(99999999, 'ZIP code must have exactly 8 digits'),
+      .string({ required_error: 'zipCode is required' })
+      .min(8, 'ZIP code must have exactly 8 digits')
+      .max(8, 'ZIP code must have exactly 8 digits'),
     address: z
       .string({
         invalid_type_error: 'Address must be a string',

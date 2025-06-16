@@ -6,7 +6,6 @@ const envSchema = z.object({
   ACCEPTED_ORIGINS: z
     .string()
     .default('["http://localhost:3000","http://localhost:5173"]'),
-
   POSTGRES_URL: z.string(),
   POSTGRES_USER: z.string().default('postgres'),
   POSTGRES_PORT: z.number({ coerce: true }).default(5432),
@@ -15,7 +14,9 @@ const envSchema = z.object({
   MAILER_SERVICE: z.string(),
   MAILER_EMAIL: z.string().email(),
   MAILER_SECRET_KEY: z.string(),
-
+  CLOUDINARY_API_KEY: z.string(),
+  CLOUDINARY_API_SECRET: z.string(),
+  CLOUDINARY_CLOUD_NAME: z.string(),
   JWT_SEED: z.string().min(1, 'JWT SEED is required'),
   NODE_ENV: z.string(),
 });
@@ -45,6 +46,9 @@ export const {
   MAILER_SERVICE,
   MAILER_EMAIL,
   MAILER_SECRET_KEY,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+  CLOUDINARY_CLOUD_NAME,
   JWT_SEED,
   NODE_ENV,
 } = data!;

@@ -6,7 +6,7 @@ export class UserResponseDto {
     public readonly name: string,
     public readonly email: string,
     public readonly cpf: string,
-    public readonly zipCode: number,
+    public readonly zipCode: string,
     public readonly address: string,
     public readonly role: Role,
     public readonly createdAt: Date,

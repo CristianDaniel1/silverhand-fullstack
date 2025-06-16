@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 export const UpdateUserSchema = z.object({
   body: z.object({
@@ -12,10 +12,9 @@ export const UpdateUserSchema = z.object({
       .max(100, 'Password too long')
       .optional(),
     zipCode: z
-      .number()
-      .int()
-      .min(10000000, 'ZIP code must have exactly 8 digits')
-      .max(99999999, 'ZIP code must have exactly 8 digits')
+      .string()
+      .min(8, 'ZIP code must have exactly 8 digits')
+      .max(8, 'ZIP code must have exactly 8 digits')
       .optional(),
     address: z.string().min(1, 'Address is required').max(255).optional(),
     profilePic: z
