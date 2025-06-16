@@ -4,6 +4,9 @@ import guitarView2 from '../assets/other-img.webp';
 import { ImageSlider } from '../components/ImageSlider.tsx';
 import { ShopContainer } from '../components/instrumentShop/ShopContainer.tsx';
 
+const classes =
+  'absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all txt-shadow';
+
 const InstrumentShop = () => {
   return (
     <main className="relative overflow-x-clip">
@@ -22,9 +25,9 @@ const InstrumentShop = () => {
                   loading="lazy"
                   width={395}
                   height={395}
-                  className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
+                  className="w-full h-full object-cover brightness-75 aspect-square"
                 />
-                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                <div className={classes}>
                   <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
                     S
                   </span>
@@ -38,9 +41,9 @@ const InstrumentShop = () => {
                   src={guitarView}
                   loading="lazy"
                   alt="Guitarra de ilustração"
-                  className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
+                  className="w-full h-full object-cover brightness-75 aspect-square"
                 />
-                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                <div className={classes}>
                   <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
                     S
                   </span>
@@ -54,9 +57,9 @@ const InstrumentShop = () => {
                   src={guitarView2}
                   loading="lazy"
                   alt="Guitarra de ilustração"
-                  className="w-full h-full object-cover brightness-75 hover:brightness-100 duration-300 aspect-square"
+                  className="w-full h-full object-cover brightness-75 aspect-square"
                 />
-                <div className="absolute w-full top-0 h-full flex justify-center items-center font-merry text-2xl xs:text-3xl sm:text-5xl opacity-0 hover:opacity-100 duration-500 hover:text-slate-100 transition-all">
+                <div className={classes}>
                   <span className="text-3xl xs:text-5xl sm:text-7xl text-primary">
                     S
                   </span>

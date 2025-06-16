@@ -42,7 +42,7 @@ export type UserAuth = {
   name: string;
   email: string;
   cpf: string;
-  zipCode: number;
+  zipCode: string;
   address: string;
   role: Role;
   createdAt: Date | string;
@@ -89,7 +89,7 @@ export type UserRegister = {
   name: string;
   email: string;
   cpf: string;
-  zipCode: number;
+  zipCode: string;
   address: string;
   role?: Role | 'USER_ROLE' | 'ADMIN_ROLE';
   phoneNumber?: string;

@@ -39,7 +39,7 @@ export const Search = ({ setSearchTerm }: SearchProps) => {
       className="w-full md:w-[24rem]"
       ref={resetForm}
     >
-      <div className="">
+      <div>
         <label className="pb-3 inline-block">Busque o seu instrumento</label>
         <div className="flex">
           <input

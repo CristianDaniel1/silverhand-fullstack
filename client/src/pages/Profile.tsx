@@ -1,5 +1,4 @@
 import profileBackgroundImg from '../assets/guitar-img-2.webp';
-import profileIcon from '../assets/profile.jpg';
 import { ProfileInfo } from '../components/profile/profileInfo.tsx';
 import { firstNameFormat } from '../utils/stringFormatters.ts';
 import { EmailIcon } from '../components/icons/EmailIcon.tsx';
@@ -7,6 +6,7 @@ import { useState } from 'react';
 import { MyOrders } from '../components/orders/myOrders.tsx';
 import { partialDateFormatter } from '../utils/formatting.ts';
 import { useAuth } from '../hooks/queries/useAuth.ts';
+import { ProfilePic } from '../components/profile/ProfilePic.tsx';
 
 type TabProfile = 'My Orders' | 'Profile Details';
 
@@ -35,13 +35,7 @@ const Profile = () => {
             </div>
             <div className=" px-6 md:px-12 py-12 w-full md:w-[47rem] rounded-md animate-[slide-up_0.5s_ease-in-out_backwards] bg-white z-[2]">
               <div className="sm:flex items-center gap-8 pb-6 sm:pb-10">
-                <div className="size-[6.25rem] mx-auto sm:mx-0 mb-8 sm:mb-0">
-                  <img
-                    src={profileIcon}
-                    alt="Foto de perfil"
-                    className="object-cover w-full h-full"
-                  />
-                </div>
+                <ProfilePic user={userAuth} />
                 <div className="relative flex-1">
                   <div>
                     <h2 className="text-3xl sm:text-4xl font-merry flex-1 text-center sm:text-left pb-6 sm:pb-4 overflow-hidden">

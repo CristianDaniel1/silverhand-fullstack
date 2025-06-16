@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .color {
-  color: #131313;
+  color: #fdb24f;
 }
 
 @layer base {
@@ -264,5 +264,22 @@ input:focus:not(:placeholder-shown):invalid {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.txt-shadow {
+  text-shadow: black 0.1rem 0.1rem 0.2rem;
+}
+
+.brightness-animation {
+  animation: brightness 0.3s ease-in-out backwards;
+}
+
+@keyframes brightness {
+  0% {
+    filter: brightness(0.3);
+  }
+  100% {
+    filter: brightness(1);
   }
 }

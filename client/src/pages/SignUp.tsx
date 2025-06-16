@@ -9,7 +9,7 @@ const SignUp = () => {
           <div className="hidden lg:block fixed top-0 left-0 w-full z-[-1] h-full overflow-clip">
             <img
               src={signUpImg}
-              alt=""
+              alt="Festa de rock"
               className="w-full h-full object-cover"
             />
           </div>

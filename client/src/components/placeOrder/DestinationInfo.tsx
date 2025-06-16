@@ -4,7 +4,7 @@ interface DestinationInfoProps {
   name: string;
   email: string;
   address: string;
-  zipCode: number;
+  zipCode: string;
 }
 
 export const DestinationInfo = ({

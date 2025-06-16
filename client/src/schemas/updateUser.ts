@@ -18,10 +18,9 @@ export const UpdateUserSchema = z.object({
     .max(40, 'Senha muito longa')
     .optional(),
   zipCode: z
-    .number({ coerce: true })
-    .int()
-    .min(10000000, 'CEP tem que ter exatamente 8 digitos')
-    .max(99999999, 'CEP tem que ter exatamente 8 digitos'),
+    .string({ coerce: true })
+    .min(8, 'CEP tem que ter exatamente 8 digitos')
+    .max(8, 'CEP tem que ter exatamente 8 digitos'),
   address: z.string().min(1, 'Endereço é obrigatório').max(255),
   profilePic: z.string().url('A foto precisa ser uma URL válida').optional(),
   role: z.enum(['USER_ROLE', 'ADMIN_ROLE']).optional(),

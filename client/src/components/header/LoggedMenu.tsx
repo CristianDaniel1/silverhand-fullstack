@@ -34,7 +34,17 @@ export const LoggedMenu = () => {
     return (
       <div className="menu relative z-40 lg:z-50">
         <button className="flex items-center justify-center hover:text-primary duration-200 rounded-full gap-2">
-          <UserCircleIcon className="object-cover size-8" />
+          {userAuth?.profilePic ? (
+            <div className="size-8 rounded-full">
+              <img
+                src={userAuth.profilePic}
+                alt="Foto de perfil"
+                className="object-cover rounded-full w-full h-full"
+              />
+            </div>
+          ) : (
+            <UserCircleIcon className="object-cover size-8" />
+          )}
           <span className="hidden sm:inline-block">
             {name && name.length > 15 ? '' : name}
           </span>
