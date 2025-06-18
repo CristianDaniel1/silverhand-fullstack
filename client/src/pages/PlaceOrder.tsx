@@ -24,7 +24,7 @@ const PlaceOrder = () => {
     mutate();
   }
 
-  if (!isSuccess && (isErrorCart || !data?.items.length)) {
+  if (!isSuccess && (isErrorCart || !data?.items?.length)) {
     return (
       <main className="pt-8 sm:pt-12 bg-slate-50">
         <div className="padding-y flex justify-center gap-14 max-container-3 lg:max-container-2 min-h-screen padding-x bg-white">
@@ -46,14 +46,18 @@ const PlaceOrder = () => {
       <div className="padding-y grid grid-cols-1 lg:grid-cols-5 gap-14 max-container-3 lg:max-container-2 min-h-screen padding-x bg-white">
         <div className="lg:col-span-3 order-3 lg:order-1">
           <section className="border-b border-b-secundary/20 pb-10">
-            <h1 className="font-merry text-xl pb-6">Finalizar compra</h1>
+            <h1 className="font-merry text-xl pb-6 border-b-2 border-b-secundary/10 text-secundary/80">
+              Finalizar compra
+            </h1>
             {userAuth && (
-              <DestinationInfo
-                name={userAuth.name}
-                email={userAuth.email}
-                address={userAuth.address}
-                zipCode={userAuth.zipCode}
-              />
+              <div className="pt-4">
+                <DestinationInfo
+                  name={userAuth.name}
+                  email={userAuth.email}
+                  address={userAuth.address}
+                  zipCode={userAuth.zipCode}
+                />
+              </div>
             )}
           </section>
           <section>

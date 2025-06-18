@@ -16,6 +16,9 @@ export const useCreateOrder = () => {
           queryKey: ['my-orders'],
         }),
         queryClient.invalidateQueries({
+          queryKey: ['orders'],
+        }),
+        queryClient.invalidateQueries({
           queryKey: ['cart'],
           refetchType: 'none',
         }),

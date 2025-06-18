@@ -10,6 +10,7 @@ import { createAuthLoader, loggedLoader } from './utils/loaders/authLoader.ts';
 import FallbackElement from './pages/FallbackElement.tsx';
 import { Toaster } from 'sonner';
 import { instrumentLoader } from './utils/loaders/instrumentLoader.ts';
+import { Spinner } from './components/ui/Spinner.tsx';
 
 // const InstrumentShop = lazy(() => import('./pages/InstrumentShop'));
 const Login = lazy(() => import('./pages/Login'));
@@ -19,6 +20,8 @@ const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 const InstrumentDetails = lazy(() => import('./pages/InstrumentDetails'));
 const Profile = lazy(() => import('./pages/Profile'));
 const PlaceOrder = lazy(() => import('./pages/PlaceOrder'));
+const LayoutAdmin = lazy(() => import('./pages/LayoutAdmin'));
+const AllOrders = lazy(() => import('./components/admin/AllOrders.tsx'));
 
 const router = createBrowserRouter([
   {
@@ -91,6 +94,27 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         loader: createAuthLoader(),
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    errorElement: <ErrorElement />,
+    hydrateFallbackElement: <FallbackElement />,
+    element: (
+      <Suspense fallback={<FallbackElement />}>
+        <LayoutAdmin />
+      </Suspense>
+    ),
+    loader: createAuthLoader(['ADMIN_ROLE']),
+    children: [
+      {
+        path: 'pedidos',
+        element: (
+          <Suspense fallback={<Spinner className="size-6" />}>
+            <AllOrders />
+          </Suspense>
+        ),
       },
     ],
   },

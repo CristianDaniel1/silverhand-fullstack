@@ -19,3 +19,14 @@ export const dateStringFormatter = (date: string | Date) => {
     year: 'numeric',
   });
 };
+
+export const dateStringComplete = (date: string | Date) => {
+  const locale = navigator.language;
+  return new Date(date).toLocaleString(locale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};

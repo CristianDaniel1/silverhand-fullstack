@@ -31,7 +31,7 @@ export const ShopItem = ({ id, name, price, image }: Instrument) => {
           />
         </div>
         <div className="px-3 py-4 flex flex-col justify-between flex-1">
-          <h3 className="text-secundary lg:text-lg">{name}</h3>
+          <h3 className="text-secundary lg:text-lg line-clamp-2">{name}</h3>
           <div className="py-4">
             <div className="text-secundary/60 text-sm line-through">
               {calculateOriginalPrice(price)}

@@ -26,7 +26,13 @@ export const Quantity = ({
           <MinusIcon />
         </button>
         <div className="font-medium text-center">
-          {isUpdating ? <Spinner className="size-6" /> : currentQuant}
+          {isUpdating ? (
+            <div className="flex justify-center">
+              <Spinner className="size-4" />
+            </div>
+          ) : (
+            currentQuant
+          )}
         </div>
         <button
           onClick={onIncrease}
