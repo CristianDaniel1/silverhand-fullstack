@@ -43,6 +43,8 @@ export const ProfileInfo = ({ userInfo }: ProfileInfoProps) => {
 
   const onSubmit: SubmitHandler<UpdateUserType> = data => {
     mutate({ user: data, id: userInfo.id });
+
+    setIsEditing(false);
   };
 
   return (
