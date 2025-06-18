@@ -1,7 +1,7 @@
 # 🎸 Full-Stack SilverHand
 
 <img
-  src="https://i.imgur.com/O1PcqfV.png"
+  src="https://i.imgur.com/2fh3q4D.png"
   alt="Página de login de SilverHand"
   width="800"
 />
