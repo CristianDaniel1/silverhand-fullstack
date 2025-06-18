@@ -137,13 +137,22 @@ export const usersData: User[] = [
 
 export const instrumentsData: Instrument[] = [
   {
-    name: 'Guitarra Fender Stratocaster Player II HSS - Transparent Cherry Burst',
-    price: 10431.0,
-    stringNum: 6,
+    name: 'Contrabaixo Squier Jazz Bass Classic Vibe 70s - Natural',
+    price: 5661.0,
+    stringNum: 4,
     quant: 22,
     image:
-      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750041617/guitarra-Fender-Stratocaster-Player-II-HSS_eia13z.webp',
-    category: 'GUITARRA',
+      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126389/Contrabaixo_Squier_Jazz_Bass_Classic_Vibe_70s_-_Natural_lxgrcm.webp',
+    category: 'CONTRABAIXO',
+  },
+  {
+    name: 'Violão Tagima Eletroacústico Aço Rio Negro - Natural Amber Satin',
+    price: 1160.1,
+    stringNum: 6,
+    quant: 35,
+    image:
+      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750127681/Viol%C3%A3o_Tagima_Eletroac%C3%BAstico_A%C3%A7o_Rio_Negro_-_Natural_Amber_Satin_kpgtod.webp',
+    category: 'VIOLAO',
   },
   {
     name: 'Guitarra PRS SE NF3 Maple - Metallic Orange',
@@ -152,6 +161,24 @@ export const instrumentsData: Instrument[] = [
     quant: 16,
     image:
       'https://res.cloudinary.com/dlqnorek4/image/upload/v1750041617/guitarra-PRS-SE-NF3-Maple_dzqaqy.webp',
+    category: 'GUITARRA',
+  },
+  {
+    name: 'Contrabaixo Fender Precision Bass Deluxe Duff McKagan Signature - White Pearl',
+    price: 17091.0,
+    stringNum: 4,
+    quant: 32,
+    image:
+      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126984/Contrabaixo_Fender_Precision_Bass_Deluxe_Duff_McKagan_Signature_-_White_Pearl_aat8b5.webp',
+    category: 'CONTRABAIXO',
+  },
+  {
+    name: 'Guitarra Fender Stratocaster Player II HSS - Transparent Cherry Burst',
+    price: 10431.0,
+    stringNum: 6,
+    quant: 22,
+    image:
+      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750041617/guitarra-Fender-Stratocaster-Player-II-HSS_eia13z.webp',
     category: 'GUITARRA',
   },
   {
@@ -298,15 +325,7 @@ export const instrumentsData: Instrument[] = [
       'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126218/Guitarra_Yamaha_Pacifica_PAC612_VIIX_-_Teal_Green_ooep6o.webp',
     category: 'GUITARRA',
   },
-  {
-    name: 'Contrabaixo Squier Jazz Bass Classic Vibe 70s - Natural',
-    price: 5661.0,
-    stringNum: 4,
-    quant: 22,
-    image:
-      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126389/Contrabaixo_Squier_Jazz_Bass_Classic_Vibe_70s_-_Natural_lxgrcm.webp',
-    category: 'CONTRABAIXO',
-  },
+
   {
     name: 'Contrabaixo Spector 5 Cordas Performer PERF5 - Branco',
     price: 4553.1,
@@ -343,15 +362,7 @@ export const instrumentsData: Instrument[] = [
       'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126885/Contrabaixo_Fender_Precision_Bass_American_Professional_II_-_Mercury_hwjxr2.webp',
     category: 'CONTRABAIXO',
   },
-  {
-    name: 'Contrabaixo Fender Precision Bass Deluxe Duff McKagan Signature - White Pearl',
-    price: 17091.0,
-    stringNum: 4,
-    quant: 32,
-    image:
-      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750126984/Contrabaixo_Fender_Precision_Bass_Deluxe_Duff_McKagan_Signature_-_White_Pearl_aat8b5.webp',
-    category: 'CONTRABAIXO',
-  },
+
   {
     name: 'Violão Godin Eletroacústico Aço Entourage - Burgundy',
     price: 8270.1,
@@ -397,15 +408,7 @@ export const instrumentsData: Instrument[] = [
       'https://res.cloudinary.com/dlqnorek4/image/upload/v1750127558/Viol%C3%A3o_Sigma_Eletroac%C3%BAstico_A%C3%A7o_GJME_Grand_Jumbo_ub1w77.webp',
     category: 'VIOLAO',
   },
-  {
-    name: 'Violão Tagima Eletroacústico Aço Rio Negro - Natural Amber Satin',
-    price: 1160.1,
-    stringNum: 6,
-    quant: 35,
-    image:
-      'https://res.cloudinary.com/dlqnorek4/image/upload/v1750127681/Viol%C3%A3o_Tagima_Eletroac%C3%BAstico_A%C3%A7o_Rio_Negro_-_Natural_Amber_Satin_kpgtod.webp',
-    category: 'VIOLAO',
-  },
+
   {
     name: 'Guitarra Fender Stratocaster Eric Clapton Signature - Olympic White',
     price: 26991.0,
