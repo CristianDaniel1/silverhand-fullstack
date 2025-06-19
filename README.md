@@ -34,7 +34,7 @@
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/CristianDaniel1/journey-api.git
+   git clone https://github.com/CristianDaniel1/silverhand-fullstack.git
    ```
 
 2. Acesse a pasta do servidor:
