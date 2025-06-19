@@ -2,7 +2,7 @@
 
 <img
   src="https://i.imgur.com/2fh3q4D.png"
-  alt="Página de login de SilverHand"
+  alt="Página inicial de SilverHand"
   width="800"
 />
 
@@ -179,12 +179,12 @@ GET http://localhost:3000/silverhand/api/instruments/206
 
 <img
 src="https://i.imgur.com/QshcCnL.png"
-alt="Detalhes sobre uma guitarra laranja"
+alt="Detalhes sobre uma guitarra estilosa"
 width="800"
 />
 
 <img
 src="https://i.imgur.com/yp4u8xq.png"
-alt="Página de login de SilverHand"
+alt="Página de cadastro de SilverHand"
 width="800"
 />
